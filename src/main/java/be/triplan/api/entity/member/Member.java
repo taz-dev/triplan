@@ -1,8 +1,9 @@
-package be.triplan.domain;
+package be.triplan.api.entity.member;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import be.triplan.api.entity.BaseEntity;
+import be.triplan.api.entity.plan.PlanJoin;
+import be.triplan.oauth.entity.ProviderType;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -35,6 +36,9 @@ public class Member extends BaseEntity {
     private String password;
 
     private String aboutMe;
+
+    @Enumerated(EnumType.STRING)
+    private ProviderType providerType;
 
     @OneToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "member_img_id")

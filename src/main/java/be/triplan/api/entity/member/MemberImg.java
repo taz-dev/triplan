@@ -1,6 +1,6 @@
-package be.triplan.domain;
+package be.triplan.api.entity.member;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import be.triplan.api.entity.member.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,20 +13,20 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PlanImg {
+public class MemberImg {
 
     @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "plan_img_Id")
+    @Column(name = "member_img_Id")
     private Long id;
 
     private String imgName;
 
     private String imgPath;
 
-    @OneToOne(mappedBy = "planImg", fetch = LAZY)
-    private Plan plan;
+    @OneToOne(mappedBy = "memberImg", fetch = LAZY)
+    private Member member;
 
-    public void setPlan(Plan plan) {
-        this.plan = plan;
+    public void setMember(Member member) {
+        this.member = member;
     }
 }

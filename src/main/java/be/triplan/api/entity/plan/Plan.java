@@ -1,5 +1,7 @@
-package be.triplan.domain;
+package be.triplan.api.entity.plan;
 
+import be.triplan.api.entity.checklist.Checklist;
+import be.triplan.api.entity.schedule.Schedule;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 

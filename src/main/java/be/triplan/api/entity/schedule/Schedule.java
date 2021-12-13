@@ -1,6 +1,7 @@
-package be.triplan.domain;
+package be.triplan.api.entity.schedule;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import be.triplan.api.entity.map.Map;
+import be.triplan.api.entity.plan.Plan;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

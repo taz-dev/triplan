@@ -1,4 +1,4 @@
-package be.triplan.domain;
+package be.triplan.api.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedBy;

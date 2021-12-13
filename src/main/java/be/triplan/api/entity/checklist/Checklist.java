@@ -1,5 +1,6 @@
-package be.triplan.domain;
+package be.triplan.api.entity.checklist;
 
+import be.triplan.api.entity.plan.Plan;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,14 +13,15 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Map {
+public class Checklist {
 
     @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "map_id")
+    @Column(name = "checklist_id")
     private Long id;
 
-    private String location;
+    private String checkItem;
 
-    @OneToOne(mappedBy = "map", fetch = LAZY)
-    private Schedule schedule;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "plan_id")
+    private Plan plan;
 }
