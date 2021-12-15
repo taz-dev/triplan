@@ -8,7 +8,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	//querydsl
-	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	//id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 	id 'java'
 }
 
@@ -38,8 +38,19 @@ dependencies {
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 	//validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	//json web token
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	//log4j
+/*	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.16.0'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.16.0'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-jul', version: '2.16.0'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.16.0'
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.32'
+	implementation group: 'org.slf4j', name: 'jul-to-slf4j', version: '1.7.32'*/
+
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	runtimeOnly 'com.h2database:h2'
+	//runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -52,7 +63,7 @@ test {
 }
 
 //querydsl
-def querydslDir = "$buildDir/generated/querydsl"
+/*def querydslDir = "$buildDir/generated/querydsl"
 
 querydsl {
 	jpa = true
@@ -75,4 +86,4 @@ configurations {
 compileQuerydsl.doFirst {
 	if(file(querydslDir).exists())
 		delete(file(querydslDir))
-}
+}*/
