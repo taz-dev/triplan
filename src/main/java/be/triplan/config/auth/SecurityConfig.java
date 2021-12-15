@@ -1,8 +1,6 @@
 package be.triplan.config.auth;
 
-import be.triplan.entity.Role;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -18,13 +16,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .headers().frameOptions().disable()
-                .and()
-                    .authorizeRequests()
-                    .antMatchers("/api/**").hasRole(Role.USER.name())
-                    .anyRequest().authenticated()
-                .and()
-                    .logout()
-                    .logoutSuccessUrl("/")
                 .and()
                     .oauth2Login() //OAuth2 로그인 설정 시작점
                     .userInfoEndpoint() //OAuth2 로그인 성공 이후 사용자 정보를 가져올 때 설정 담당

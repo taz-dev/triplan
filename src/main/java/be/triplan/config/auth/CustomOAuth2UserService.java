@@ -38,8 +38,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                                           .getUserInfoEndpoint()
                                           .getUserNameAttributeName();
 
-        // OAuth2UserService
+        //OAuth2UserService
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+
         Member member = saveOrUpdate(attributes);
         httpSession.setAttribute("member", new SessionUser(member)); // SessionUser (직렬화된 dto 클래스 사용)
 

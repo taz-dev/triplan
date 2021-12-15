@@ -26,13 +26,29 @@ public class OAuthAttributes {
     }
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes){
-        //naver
+
+        if ("kakao".equals(registrationId)) {
+            return ofKakao("id", attributes);
+        }
         if ("naver".equals(registrationId)) {
             return ofNaver("id", attributes);
         }
-
-        //google
         return ofGoogle(userNameAttributeName, attributes);
+    }
+
+    private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
+        //kakao는 kakao_account에 유저정보가 있음(email)
+        Map<String, Object> kakaoAccount = (Map<String, Object>)attributes.get("kakao_account");
+        //kakao_account안에 또 profile이라는 JSON객체가 있음(nickname, profile_image)
+        Map<String, Object> kakaoProfile = (Map<String, Object>)kakaoAccount.get("profile");
+
+        return OAuthAttributes.builder()
+                .nickname((String) kakaoProfile.get("nickname"))
+                .email((String) kakaoAccount.get("email"))
+                .imageUrl((String) kakaoProfile.get("profile_image_url"))
+                .attributes(attributes)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
     }
 
     private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
