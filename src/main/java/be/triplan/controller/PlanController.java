@@ -1,7 +1,7 @@
-package be.triplan.api.controller.plan;
+package be.triplan.controller;
 
-import be.triplan.api.entity.plan.Plan;
-import be.triplan.api.repository.plan.PlanRepository;
+import be.triplan.entity.Plan;
+import be.triplan.repository.PlanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

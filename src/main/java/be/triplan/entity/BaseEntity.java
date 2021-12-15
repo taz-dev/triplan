@@ -1,4 +1,4 @@
-package be.triplan.api.entity;
+package be.triplan.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedBy;
@@ -18,16 +18,18 @@ import java.time.LocalDateTime;
 public class BaseEntity {
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(name = "created_date", updatable = false)
     private LocalDateTime createdDate;
 
     @LastModifiedDate
+    @Column(name = "last_modified_date")
     private LocalDateTime lastModifiedDate;
 
     @CreatedBy
-    @Column(updatable = false)
+    @Column(name = "created_by", updatable = false)
     private String createdBy;
 
     @LastModifiedBy
+    @Column(name = "last_modified_by")
     private String lastModifiedBy;
 }

@@ -1,6 +1,6 @@
-package be.triplan.api.repository.plan;
+package be.triplan.repository;
 
-import be.triplan.api.entity.plan.Plan;
+import be.triplan.entity.Plan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

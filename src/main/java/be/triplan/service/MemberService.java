@@ -1,6 +1,6 @@
-package be.triplan.api.service.member;
+package be.triplan.service;
 
-import be.triplan.api.repository.member.MemberRepository;
+import be.triplan.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

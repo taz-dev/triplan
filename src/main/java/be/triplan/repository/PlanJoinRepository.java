@@ -1,6 +1,6 @@
-package be.triplan.api.repository.plan;
+package be.triplan.repository;
 
-import be.triplan.api.entity.plan.PlanJoin;
+import be.triplan.entity.PlanJoin;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PlanJoinRepository extends JpaRepository<PlanJoin, Long> {

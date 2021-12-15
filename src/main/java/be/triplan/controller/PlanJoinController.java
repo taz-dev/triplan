@@ -1,6 +1,6 @@
-package be.triplan.api.controller.planjoin;
+package be.triplan.controller;
 
-import be.triplan.api.repository.plan.PlanJoinRepository;
+import be.triplan.repository.PlanJoinRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 

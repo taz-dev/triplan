@@ -1,8 +1,5 @@
-package be.triplan.api.entity.member;
+package be.triplan.entity;
 
-import be.triplan.api.entity.BaseEntity;
-import be.triplan.api.entity.plan.PlanJoin;
-import be.triplan.oauth.entity.ProviderType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,22 +20,42 @@ public class Member extends BaseEntity {
     @Column(name = "member_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String nameTag;
-
-    @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
     private String nickname;
 
-    @Column(nullable = false)
+    private String email;
+
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    @Column(name = "name_tag")
+    private String nameTag;
+
     private String password;
 
+    @Column(name = "about_me")
     private String aboutMe;
 
     @Enumerated(EnumType.STRING)
-    private ProviderType providerType;
+    private Role role;
+
+    @Builder
+    public Member(String nickname, String email, String imageUrl, Role role) {
+        this.nickname = nickname;
+        this.email = email;
+        this.imageUrl = imageUrl;
+        this.role = role;
+    }
+
+    public Member update(String nickname, String imageUrl) {
+        this.nickname = nickname;
+        this.imageUrl = imageUrl;
+
+        return this;
+    }
+
+    public String getRoleKey() {
+        return this.role.getKey();
+    }
 
     @OneToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "member_img_id")
@@ -53,8 +70,8 @@ public class Member extends BaseEntity {
         planJoin.setMember(this);
     }
 
-    public void setMemberImg(MemberImg memberImg) {
+/*    public void setMemberImg(MemberImg memberImg) {
         this.memberImg = memberImg;
         memberImg.setMember(this);
-    }
+    }*/
 }

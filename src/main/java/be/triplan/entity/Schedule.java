@@ -1,7 +1,7 @@
-package be.triplan.api.entity.schedule;
+package be.triplan.entity;
 
-import be.triplan.api.entity.map.Map;
-import be.triplan.api.entity.plan.Plan;
+import be.triplan.entity.Map;
+import be.triplan.entity.Plan;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

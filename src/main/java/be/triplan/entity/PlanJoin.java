@@ -1,7 +1,7 @@
-package be.triplan.api.entity.plan;
+package be.triplan.entity;
 
-import be.triplan.api.entity.member.Member;
-import be.triplan.api.entity.plan.Plan;
+import be.triplan.entity.Member;
+import be.triplan.entity.Plan;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
