@@ -15,7 +15,7 @@ spring:
             client-secret: mK_YO2ElZi
             client-name: Naver
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:9090/login/oauth2/code/naver
+            redirect-uri: http://localhost:8080/login/oauth2/code/naver
             scope:
               - nickname
               - email
@@ -27,7 +27,7 @@ spring:
             client-authentication-method: POST
             client-name: Kakao
             authorization-grant-type: authorization_code
-            redirect-url: http://localhost:9090/login/oauth2/code/kakao
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
             scope:
               - profile_nickname
               - profile_image

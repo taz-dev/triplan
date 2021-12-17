@@ -53,6 +53,10 @@ public class Member extends BaseEntity {
         return this;
     }
 
+    public Member(String nickname) {
+        this.nickname = nickname;
+    }
+
     public String getRoleKey() {
         return this.role.getKey();
     }
@@ -64,14 +68,18 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member", cascade = ALL)
     private List<PlanJoin> planJoins = new ArrayList<>();
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     //연관관계 메서드
     public void setPlanJoin(PlanJoin planJoin) {
         planJoins.add(planJoin);
         planJoin.setMember(this);
     }
 
-/*    public void setMemberImg(MemberImg memberImg) {
+    public void setMemberImg(MemberImg memberImg) {
         this.memberImg = memberImg;
         memberImg.setMember(this);
-    }*/
+    }
 }

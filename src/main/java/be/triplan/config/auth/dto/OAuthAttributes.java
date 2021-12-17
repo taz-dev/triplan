@@ -17,7 +17,7 @@ public class OAuthAttributes {
     private String imageUrl;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String nickname, String email, String imageUrl) {
+    public OAuthAttributes (Map<String, Object> attributes, String nameAttributeKey, String nickname, String email, String imageUrl) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.nickname = nickname;
