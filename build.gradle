@@ -43,6 +43,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	//json web token
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	//gson
+	implementation 'com.google.code.gson:gson:2.8.9'
 	//log4j
 /*	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.16.0'
 	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.16.0'
