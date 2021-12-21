@@ -14,6 +14,7 @@ import org.springframework.web.filter.CorsFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomOAuth2UserService customOAuth2UserService;
+    //private final OAuthService oAuthService;
 
     @Autowired
     CorsFilter corsFilter;

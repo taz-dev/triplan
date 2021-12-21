@@ -1,6 +1,9 @@
 spring:
   security:
     oauth2:
+      jwt:
+        secret-key: triplan
+
       client:
         registration:
           google:

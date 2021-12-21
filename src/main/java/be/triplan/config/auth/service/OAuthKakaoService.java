@@ -51,9 +51,11 @@ public class OAuthKakaoService {
 
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            String imageUrl = properties.getAsJsonObject().get("profile_image_url").getAsString();
 
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
+            userInfo.put("profile_image_url", imageUrl);
 
             br.close();
 
