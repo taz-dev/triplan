@@ -20,7 +20,6 @@ public class PlanJoin {
     @Column(name = "plan_join_id")
     private Long id;
 
-    //@JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;

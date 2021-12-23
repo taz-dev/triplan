@@ -25,11 +25,11 @@ public class BaseEntity {
     @Column(name = "last_modified_date")
     private LocalDateTime lastModifiedDate;
 
-    @CreatedBy
-    @Column(name = "created_by", updatable = false)
-    private String createdBy;
+    //@CreatedBy
+    //@Column(name = "created_by", updatable = false)
+    //private String createdBy;
 
-    @LastModifiedBy
-    @Column(name = "last_modified_by")
-    private String lastModifiedBy;
+    //@LastModifiedBy
+    //@Column(name = "last_modified_by")
+    //private String lastModifiedBy;
 }

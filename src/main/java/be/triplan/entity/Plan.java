@@ -15,7 +15,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Plan {
+public class Plan extends BaseEntity {
 
     @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "plan_id")
@@ -45,4 +45,15 @@ public class Plan {
         this.planImg = planImg;
         planImg.setPlan(this);
     }
+
+    //생성 메서드
+/*    public static Plan createPlan(PlanImg planImg, Checklist checklist, Schedule... schedule) {
+        Plan plan = new Plan();
+        plan.setPlanImg(planImg);
+    }*/
+
+    //비즈니스 로직
+
+
+
 }
