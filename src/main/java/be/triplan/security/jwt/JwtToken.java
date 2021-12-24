@@ -1,4 +1,4 @@
-package be.triplan.security.jwt;
+/*package be.triplan.security.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,4 +29,4 @@ public class JwtToken {
 
         return jwt;
     }
-}
+}*/

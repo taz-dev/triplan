@@ -1,4 +1,4 @@
-package be.triplan.config.auth;
+package be.triplan.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,14 +16,12 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
-        config.addAllowedOrigin("http://112.161.102.19");
-        config.addAllowedOrigin("http://localhost:8080");
-        config.addAllowedOrigin("http://112.161.102.19:8080");
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-
+        //config.setAllowCredentials(true); //서버가 응답을 할 때 json을 자바스크립트에서 처리할 수 있게 할지를 설정하는 것
+        config.addAllowedOrigin("*"); //모든 ip에 응답을 허용
+        config.addAllowedHeader("*"); //모든 header에 응답을 허용
+        config.addAllowedMethod("*"); //모든 post, get, put, delete, patch 요청을 허용
         source.registerCorsConfiguration("/**", config);
+
         return new CorsFilter(source);
     }
 }
