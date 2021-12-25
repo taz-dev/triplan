@@ -45,13 +45,6 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	//gson
 	implementation 'com.google.code.gson:gson:2.8.9'
-	//log4j
-/*	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.16.0'
-	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.16.0'
-	implementation group: 'org.apache.logging.log4j', name: 'log4j-jul', version: '2.16.0'
-	implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.16.0'
-	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.32'
-	implementation group: 'org.slf4j', name: 'jul-to-slf4j', version: '1.7.32'*/
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
@@ -66,6 +59,9 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+//slf4j 업데이트 완료 2.17
+ext['log4j2.version']='2.17.0'
 
 //querydsl
 /*def querydslDir = "$buildDir/generated/querydsl"
