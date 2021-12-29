@@ -1,4 +1,4 @@
-package be.triplan.api.dto.member;
+package be.triplan.dto.member;
 
 import lombok.Getter;
 import org.hibernate.procedure.spi.ParameterRegistrationImplementor;

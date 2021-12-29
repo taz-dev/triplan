@@ -1,7 +1,7 @@
-package be.triplan.api.dto;
+package be.triplan.dto.plan;
 
-import be.triplan.api.entity.Plan;
-import be.triplan.api.entity.PlanStatus;
+import be.triplan.entity.Plan;
+import be.triplan.entity.PlanStatus;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package be.triplan.api.entity;
+package be.triplan.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,20 +12,14 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PlanImg {
+public class Map {
 
     @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "plan_img_Id")
+    @Column(name = "map_id")
     private Long id;
 
-    private String imgName;
+    private String location;
 
-    private String imgPath;
-
-    @OneToOne(mappedBy = "planImg", fetch = LAZY)
-    private Plan plan;
-
-    public void setPlan(Plan plan) {
-        this.plan = plan;
-    }
+    @OneToOne(mappedBy = "map", fetch = LAZY)
+    private Schedule schedule;
 }

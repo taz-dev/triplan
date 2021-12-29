@@ -1,7 +1,7 @@
-package be.triplan.api.service;
+package be.triplan.service;
 
-import be.triplan.api.entity.PlanJoin;
-import be.triplan.api.repository.PlanJoinRepository;
+import be.triplan.entity.PlanJoin;
+import be.triplan.repository.PlanJoinRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

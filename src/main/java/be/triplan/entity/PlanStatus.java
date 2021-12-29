@@ -1,4 +1,4 @@
-package be.triplan.api.entity;
+package be.triplan.entity;
 
 public enum PlanStatus {
     PAST, PRESENT, FUTURE

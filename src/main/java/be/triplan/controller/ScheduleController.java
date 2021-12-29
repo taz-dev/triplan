@@ -1,7 +1,7 @@
-package be.triplan.api.controller;
+package be.triplan.controller;
 
-import be.triplan.api.entity.Schedule;
-import be.triplan.api.repository.ScheduleRepository;
+import be.triplan.entity.Schedule;
+import be.triplan.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

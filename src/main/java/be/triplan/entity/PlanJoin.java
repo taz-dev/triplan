@@ -1,6 +1,5 @@
-package be.triplan.api.entity;
+package be.triplan.entity;
 
-import be.triplan.api.entity.member.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,18 +12,19 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberImg {
+public class PlanJoin {
 
     @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "member_img_Id")
+    @Column(name = "plan_join_id")
     private Long id;
 
-    private String imgName;
-
-    private String imgPath;
-
-    @OneToOne(mappedBy = "memberImg", fetch = LAZY)
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "plan_id")
+    private Plan plan;
 
     public void setMember(Member member) {
         this.member = member;

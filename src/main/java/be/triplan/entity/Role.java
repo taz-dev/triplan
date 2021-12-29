@@ -1,4 +1,4 @@
-package be.triplan.api.entity;
+package be.triplan.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
