@@ -1,11 +1,11 @@
-package be.triplan.api.controller;
+package be.triplan.controller;
 
-import be.triplan.api.dto.member.CreateMemberRequest;
-import be.triplan.api.dto.member.CreateMemberResponse;
-import be.triplan.api.dto.member.UpdateMemberRequest;
-import be.triplan.api.dto.member.UpdateMemberResponse;
-import be.triplan.api.entity.member.Member;
-import be.triplan.api.service.MemberService;
+import be.triplan.dto.member.CreateMemberRequest;
+import be.triplan.dto.member.CreateMemberResponse;
+import be.triplan.dto.member.UpdateMemberRequest;
+import be.triplan.dto.member.UpdateMemberResponse;
+import be.triplan.entity.Member;
+import be.triplan.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +18,14 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    //회원 전체 조회 API
+    //회원 목록 조회 API
     @CrossOrigin(origins = "*")
     @GetMapping("/members")
     public List<Member> findAll() { //반환값 바꿔주기
         return memberService.findMembers();
     }
 
-    //회원 조회 API
+    //회원 단건 조회 API
     @CrossOrigin(origins = "*")
     @GetMapping("/members/{id}")
     public Member findOne(@PathVariable Long id) { //반환값 바꿔주기
@@ -33,14 +33,14 @@ public class MemberController {
     }
 
     //회원 등록 API
-    @PostMapping("/members")
+/*    @PostMapping("/members")
     public CreateMemberResponse saveMember(@RequestBody @Valid CreateMemberRequest request) {
 
         Member member = new Member(request.getNickname());
 
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
-    }
+    }*/
 
     //회원 수정 API
     @PutMapping("/members/{id}")

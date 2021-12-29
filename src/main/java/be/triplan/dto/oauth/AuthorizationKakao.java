@@ -1,4 +1,4 @@
-package be.triplan.oauth.dto;
+package be.triplan.dto.oauth;
 
 import lombok.Getter;
 

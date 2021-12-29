@@ -1,8 +1,6 @@
 package be.triplan.config.security;
 
-import be.triplan.oauth.CustomOAuth2UserService;
-import be.triplan.oauth.exception.RestAuthenticationEntryPoint;
-import be.triplan.oauth.jwt.JwtAuthenticationFilter;
+import be.triplan.exception.RestAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,9 +15,8 @@ import org.springframework.web.filter.CorsFilter;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final JwtProvider jwtProvider;
     private final CorsFilter corsFilter;
-    private final CustomOAuth2UserService customOAuth2UserService;
-    //private final OAuthService oAuthService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -38,24 +35,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     //.addFilter(new JwtAuthenticationFilter(authenticationManager()))
                     .authorizeRequests()
-                    .antMatchers("/api/**").permitAll() //토큰 없어도 호출할 수 있도록 설정
-                    .antMatchers("/auth/**", "/oauth2/**").permitAll()
-                    .anyRequest().authenticated()
-                .and()
-                    .oauth2Login() //OAuth2 로그인 설정 시작점
-                    .authorizationEndpoint()
-                    .baseUri("/oauth2/authorization") //다시 설정
-                .and()
-                    .redirectionEndpoint()
-                    .baseUri("/*/oauth2/code/*") //다시 설정
-                .and()
-                    .userInfoEndpoint() //OAuth2 로그인 성공 이후 사용자 정보를 가져올 때 설정 담당
-                    .userService(customOAuth2UserService); //OAuth2 로그인 성공 시, 후작업을 진행항 UserService 인터페이스 구현
+                    .antMatchers("/members/**","/social/**").permitAll() //토큰 없어도 호출할 수 있도록 설정
+                    .antMatchers("/oauth/kakao/**").permitAll()
+                    .anyRequest().hasRole("USER")
+//                .and()
+//                    .oauth2Login() //OAuth2 로그인 설정 시작점
+//                    .authorizationEndpoint()
+//                    .baseUri("/oauth2/authorization") //다시 설정
+//                .and()
+//                    .redirectionEndpoint()
+//                    .baseUri("/*/oauth2/code/*") //다시 설정
+//                .and()
+//                    .userInfoEndpoint() //OAuth2 로그인 성공 이후 사용자 정보를 가져올 때 설정 담당
+//                    .userService(customOAuth2UserService); //OAuth2 로그인 성공 시, 후작업을 진행항 UserService 인터페이스 구현
                 //.and()
                     //.successHandler(oAuth2AuthenticationSuccessHandler)
                     //.failureHandler(oAuth2AuthenticationFailureHandler);
-
-        //http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+                .and()
+                    .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
     }
 
 }

@@ -1,17 +1,16 @@
-package be.triplan.api.entity.member;
+package be.triplan.entity;
 
-import be.triplan.api.entity.BaseEntity;
-import be.triplan.api.entity.MemberImg;
-import be.triplan.api.entity.PlanJoin;
-import be.triplan.api.entity.Role;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.LAZY;
@@ -19,8 +18,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseEntity {
+@AllArgsConstructor
+public class Member extends BaseTimeEntity implements UserDetails {
 
     @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "member_id")
@@ -41,10 +42,14 @@ public class Member extends BaseEntity {
     @Column(name = "about_me")
     private String aboutMe;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    //Google, Kakao, Naver 구분하기 위한 provider
+    private String provider;
 
-    @Builder
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+/*    @Builder
     public Member(String nickname, String email, String imageUrl, Role role) {
         this.nickname = nickname;
         this.email = email;
@@ -65,7 +70,7 @@ public class Member extends BaseEntity {
 
     public String getRoleKey() {
         return this.role.getKey();
-    }
+    }*/
 
     @OneToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "member_img_id")
@@ -87,5 +92,41 @@ public class Member extends BaseEntity {
     public void setMemberImg(MemberImg memberImg) {
         this.memberImg = memberImg;
         memberImg.setMember(this);
+    }
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles
+                .stream().map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getUsername() {
+        return String.valueOf(this.id);
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
