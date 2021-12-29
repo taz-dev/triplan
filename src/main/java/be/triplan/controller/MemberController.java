@@ -1,11 +1,14 @@
 package be.triplan.controller;
 
-import be.triplan.dto.member.CreateMemberRequest;
-import be.triplan.dto.member.CreateMemberResponse;
-import be.triplan.dto.member.UpdateMemberRequest;
-import be.triplan.dto.member.UpdateMemberResponse;
+import be.triplan.dto.member.MemberRequestDto;
+import be.triplan.dto.member.MemberResponseDto;
+import be.triplan.dto.response.CommonResult;
+import be.triplan.dto.response.ListResult;
+import be.triplan.dto.response.SingleResult;
 import be.triplan.entity.Member;
 import be.triplan.service.MemberService;
+import be.triplan.service.response.ResponseService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,44 +20,41 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final ResponseService responseService;
 
-    //회원 목록 조회 API
+    //회원 목록 조회
     @CrossOrigin(origins = "*")
     @GetMapping("/members")
-    public List<Member> findAll() { //반환값 바꿔주기
-        return memberService.findMembers();
+    public ListResult<MemberResponseDto> findAllMember() {
+        return responseService.getListResult(memberService.findAllMembers());
     }
 
-    //회원 단건 조회 API
-    @CrossOrigin(origins = "*")
+    //회원 단건 조회
     @GetMapping("/members/{id}")
-    public Member findOne(@PathVariable Long id) { //반환값 바꿔주기
-        return memberService.findOne(id);
+    public SingleResult<MemberResponseDto> findMemberById(@PathVariable Long id) {
+        return responseService.getSingleResult(memberService.findOne(id));
     }
 
-    //회원 등록 API
-/*    @PostMapping("/members")
-    public CreateMemberResponse saveMember(@RequestBody @Valid CreateMemberRequest request) {
+    //회원 수정
+    @PutMapping("/members")
+    public SingleResult<Long> updateMember(
+            @RequestParam Long id,
+            @RequestParam String nickname,
+            @RequestParam String aboutMe) {
 
-        Member member = new Member(request.getNickname());
+        MemberRequestDto memberRequestDto = MemberRequestDto.builder()
+                .nickname(nickname)
+                .aboutMe(aboutMe)
+                .build();
 
-        Long id = memberService.join(member);
-        return new CreateMemberResponse(id);
-    }*/
-
-    //회원 수정 API
-    @PutMapping("/members/{id}")
-    public UpdateMemberResponse updateMember(
-            @PathVariable Long id,
-            @RequestBody @Valid UpdateMemberRequest request) {
-
-        memberService.update(id, request.getNickname());
-        Member findMember = memberService.findOne(id);
-        return new UpdateMemberResponse(findMember.getId(), findMember.getNickname());
+        return responseService.getSingleResult(memberService.update(id, memberRequestDto));
 
     }
 
-    //회원 삭제 API
-    //@DeleteMapping("/members/{id}")
-
+    //회원 삭제
+    @DeleteMapping("/members/{id}")
+    public CommonResult deleteMember(@PathVariable Long id) {
+        memberService.delete(id);
+        return responseService.getSuccessResult();
+    }
 }

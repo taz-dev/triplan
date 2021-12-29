@@ -49,6 +49,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
         this.nickname = nickname;
     }
 
+    public void updateAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
+
 /*    @Builder
     public Member(String nickname, String email, String imageUrl, Role role) {
         this.nickname = nickname;

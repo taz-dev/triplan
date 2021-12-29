@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class SignController {
+public class SocialController {
 
     private final JwtProvider jwtProvider;
     private final MemberRepository memberRepository;
