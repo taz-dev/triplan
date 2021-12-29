@@ -49,16 +49,3 @@ spring:
 # jwt secret key 설정
 jwt:
   secret: SWFtYWp3dHNlY3JldHRva2VudXNlZGludGhldHJpcGxhbmFwcA==
-
-# 토큰 관련 secret key 및 RedirectUri 설정
-app:
-  auth:
-    tokenSecret:
-    tokenExpiry: 1800000
-    refreshTokenExpiry: 604800000
-  #cors:
-    #allowedOrigins: http://localhost:3000, http://localhost:9090
-  oauth:
-    authorizedRedirectUris:
-      #- http://localhost:3000/oauth/redirect
-      #- myiosapp://oauth/redirect

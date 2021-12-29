@@ -1,4 +1,4 @@
-package be.triplan.oauth.exception;
+package be.triplan.exception;
 
 public class TokenValidFailedException extends RuntimeException {
 
