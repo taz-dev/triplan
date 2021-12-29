@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,7 +44,7 @@ public class MemberService {
     public Long update(Long id, MemberRequestDto memberRequestDto) {
         Member member = memberRepository.findById(id).orElseThrow(CUserNotFoundException::new);
         member.updateNickname(memberRequestDto.getNickname());
-        member.updateNickname(memberRequestDto.getAboutMe());
+        member.updateAboutMe(memberRequestDto.getAboutMe());
         return id;
     }
 

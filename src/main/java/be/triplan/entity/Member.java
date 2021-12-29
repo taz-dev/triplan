@@ -53,39 +53,12 @@ public class Member extends BaseTimeEntity implements UserDetails {
         this.aboutMe = aboutMe;
     }
 
-/*    @Builder
-    public Member(String nickname, String email, String imageUrl, Role role) {
-        this.nickname = nickname;
-        this.email = email;
-        this.imageUrl = imageUrl;
-        this.role = role;
-    }
-
-    public Member update(String nickname, String imageUrl) {
-        this.nickname = nickname;
-        this.imageUrl = imageUrl;
-
-        return this;
-    }
-
-    public Member(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getRoleKey() {
-        return this.role.getKey();
-    }*/
-
     @OneToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "member_img_id")
     private MemberImg memberImg;
 
     @OneToMany(mappedBy = "member", cascade = ALL)
     private List<PlanJoin> planJoins = new ArrayList<>();
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
 
     //연관관계 메서드
     public void setPlanJoin(PlanJoin planJoin) {

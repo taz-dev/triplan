@@ -5,15 +5,10 @@ import be.triplan.dto.member.MemberResponseDto;
 import be.triplan.dto.response.CommonResult;
 import be.triplan.dto.response.ListResult;
 import be.triplan.dto.response.SingleResult;
-import be.triplan.entity.Member;
 import be.triplan.service.MemberService;
 import be.triplan.service.response.ResponseService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

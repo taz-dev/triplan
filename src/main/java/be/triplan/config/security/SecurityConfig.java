@@ -1,6 +1,5 @@
 package be.triplan.config.security;
 
-import be.triplan.exception.RestAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
