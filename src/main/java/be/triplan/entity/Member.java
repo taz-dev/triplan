@@ -31,9 +31,6 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     private String email;
 
-    @Column(name = "image_url")
-    private String imageUrl;
-
     @Column(name = "name_tag")
     private String nameTag;
 
@@ -42,16 +39,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(name = "about_me")
     private String aboutMe;
 
-    //Google, Kakao, Naver 구분하기 위한 provider
-    private String provider;
-
-    public void updateNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public void updateAboutMe(String aboutMe) {
-        this.aboutMe = aboutMe;
-    }
+    private String provider; //Google, Kakao, Naver 구분
 
     @OneToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "member_img_id")
@@ -60,15 +48,27 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @OneToMany(mappedBy = "member", cascade = ALL)
     private List<PlanJoin> planJoins = new ArrayList<>();
 
-    //연관관계 메서드
-    public void setPlanJoin(PlanJoin planJoin) {
-        planJoins.add(planJoin);
-        planJoin.setMember(this);
+    @OneToMany(mappedBy = "member", cascade = ALL)
+    private List<Question> questions = new ArrayList<>();
+
+    //비즈니스 로직
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
     }
 
+    public void updateAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
+    
+    //연관관계 메서드
     public void setMemberImg(MemberImg memberImg) {
         this.memberImg = memberImg;
         memberImg.setMember(this);
+    }
+
+    public void setPlanJoin(PlanJoin planJoin) {
+        planJoins.add(planJoin);
+        planJoin.setMember(this);
     }
 
     @ElementCollection(fetch = FetchType.EAGER)
