@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class PlanDto {
+public class PlanResponseDto {
 
     private Long planId;
     private String planTitle;
@@ -17,7 +17,7 @@ public class PlanDto {
     //private List<ChecklistDto> checklists;
     //private List<ScheduleDto> schedules;
 
-    public PlanDto(Plan plan) {
+    public PlanResponseDto(Plan plan) {
         planId = plan.getId();
         planTitle = plan.getPlanTitle();
         startDateTime = plan.getStartDateTime();

@@ -1,5 +1,6 @@
 package be.triplan.entity;
 
+import be.triplan.dto.member.MemberResponseDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,10 +48,13 @@ public class Plan extends BaseTimeEntity {
     }
 
     //생성 메서드
-/*    public static Plan createPlan(PlanImg planImg, Checklist checklist, Schedule... schedule) {
+   public static Plan createPlan() {
         Plan plan = new Plan();
-        plan.setPlanImg(planImg);
-    }*/
+
+
+
+        return plan;
+    }
 
     //비즈니스 로직
 
