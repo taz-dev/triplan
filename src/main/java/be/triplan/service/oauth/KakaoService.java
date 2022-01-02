@@ -16,7 +16,6 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class KakaoService {
 
-    private final Environment env;
     private final RestTemplate restTemplate;
     private final Gson gson;
 

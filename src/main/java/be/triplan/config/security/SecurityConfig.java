@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS) //세션을 사용하지 않음
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/members/**","/social/**").permitAll() //토큰 없어도 호출할 수 있도록 설정
+                    .antMatchers("/social/**", "/members/**", "/planjoins/**", "/plans/**").permitAll() //토큰 없어도 호출할 수 있도록 설정
                     .anyRequest().hasRole("USER")
                 .and()
                     .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);

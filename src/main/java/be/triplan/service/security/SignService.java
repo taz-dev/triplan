@@ -20,7 +20,7 @@ public class SignService {
         if (memberRepository
                 .findByEmailAndProvider(memberSignRequestDto.getEmail(), memberSignRequestDto.getProvider())
                 .isPresent()
-        ) throw new CUserExistException();
+        ) throw new CUserExistException(); //이미 가입된 유저 Exception
 
         return memberRepository.save(memberSignRequestDto.toEntity()).getId();
     }

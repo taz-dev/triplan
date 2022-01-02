@@ -2,11 +2,11 @@ package be.triplan.controller;
 
 import be.triplan.dto.member.MemberRequestDto;
 import be.triplan.dto.member.MemberResponseDto;
-import be.triplan.dto.response.CommonResult;
-import be.triplan.dto.response.ListResult;
-import be.triplan.dto.response.SingleResult;
+import be.triplan.dto.common.CommonResult;
+import be.triplan.dto.common.ListResult;
+import be.triplan.dto.common.SingleResult;
 import be.triplan.service.MemberService;
-import be.triplan.service.response.ResponseService;
+import be.triplan.service.common.ResponseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,6 @@ public class MemberController {
     private final ResponseService responseService;
 
     //회원 목록 조회
-    @CrossOrigin(origins = "*")
     @GetMapping("/members")
     public ListResult<MemberResponseDto> findAllMember() {
         return responseService.getListResult(memberService.findAllMembers());
