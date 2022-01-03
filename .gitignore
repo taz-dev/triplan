@@ -37,4 +37,6 @@ out/
 .vscode/
 
 ### OAuth ###
-application-oauth.yml
+src/main/resources/application-oauth.yml
+### mail ###
+src/main/resources/application-mail.yml
