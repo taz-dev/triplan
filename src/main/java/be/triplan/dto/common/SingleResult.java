@@ -1,4 +1,4 @@
-package be.triplan.dto.response;
+package be.triplan.dto.common;
 
 import lombok.Getter;
 import lombok.Setter;

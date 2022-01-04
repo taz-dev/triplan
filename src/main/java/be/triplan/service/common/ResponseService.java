@@ -1,9 +1,9 @@
-package be.triplan.service.response;
+package be.triplan.service.common;
 
-import be.triplan.dto.response.CommonResponse;
-import be.triplan.dto.response.CommonResult;
-import be.triplan.dto.response.ListResult;
-import be.triplan.dto.response.SingleResult;
+import be.triplan.dto.common.CommonResponse;
+import be.triplan.dto.common.CommonResult;
+import be.triplan.dto.common.ListResult;
+import be.triplan.dto.common.SingleResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
