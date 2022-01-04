@@ -5,6 +5,7 @@ import be.triplan.dto.member.MemberResponseDto;
 import be.triplan.dto.common.CommonResult;
 import be.triplan.dto.common.ListResult;
 import be.triplan.dto.common.SingleResult;
+import be.triplan.service.MailService;
 import be.triplan.service.MemberService;
 import be.triplan.service.common.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final MailService mailService;
     private final ResponseService responseService;
 
     //회원 목록 조회
@@ -50,5 +52,11 @@ public class MemberController {
     public CommonResult deleteMember(@PathVariable Long id) {
         memberService.delete(id);
         return responseService.getSuccessResult();
+    }
+
+    //이메일 인증코드 전송
+    @PostMapping("/code")
+    public void sendCode(@RequestBody String email) {
+        mailService.sendCode(email);
     }
 }
