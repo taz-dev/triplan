@@ -32,7 +32,8 @@
 <br>
 
 ## 👩‍🔧 프로젝트에서 맡은 역할
-* OAuth2.0을 이용한 google, naver, kakao 로그인 구현
+* OAuth2.0을 이용한 google, naver, kakao 회원가입 및 로그인 구현
+* JWT(Access Token, Refresh Token)로 보안성 강화 및 사용자 편의성 고도화
 <br>
 
 ## 💡 프로젝트를 통해 배운점
