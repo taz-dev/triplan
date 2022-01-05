@@ -34,7 +34,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(name = "name_tag")
     private String nameTag;
 
-    private String password;
+    private String password; //UserDetails 때문에 있어야 됨
 
     @Column(name = "about_me")
     private String aboutMe;
@@ -59,7 +59,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     public void updateAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
     }
-    
+
     //연관관계 메서드
     public void setMemberImg(MemberImg memberImg) {
         this.memberImg = memberImg;
@@ -87,21 +87,25 @@ public class Member extends BaseTimeEntity implements UserDetails {
         return String.valueOf(this.id);
     }
 
+    //계정이 만료되었는지 여부
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    //계정이 잠겼는지 여부
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    //계졍 패스워드가 만료되었는지 여부
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    //계정이 사용가능한지 여부
     @Override
     public boolean isEnabled() {
         return true;

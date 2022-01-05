@@ -1,11 +1,10 @@
 package be.triplan.service.oauth;
 
 import be.triplan.dto.oauth.KakaoProfile;
-import be.triplan.exception.CCommunicationException;
+import be.triplan.exception.TCommunicationException;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
@@ -26,7 +25,7 @@ public class KakaoService {
         headers.set("Authorization", "Bearer " + kakaoAccessToken);
 
         String requestUrl = "https://kapi.kakao.com/v2/user/me";
-        if (requestUrl == null) throw new CCommunicationException();
+        if (requestUrl == null) throw new TCommunicationException();
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
 
@@ -37,15 +36,15 @@ public class KakaoService {
 
         } catch (Exception e) {
             log.error(e.toString());
-            throw new CCommunicationException();
+            throw new TCommunicationException();
         }
-        throw new CCommunicationException();
+        throw new TCommunicationException();
     }
 
     //카카오 유저와 연결 끊기
     public void kakaoUnlink(String accessToken) {
         String unlinkUrl = "https://kapi.kakao.com/v1/user/unlink";
-        if (unlinkUrl == null) throw new CCommunicationException();
+        if (unlinkUrl == null) throw new TCommunicationException();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -58,7 +57,7 @@ public class KakaoService {
             log.info("unlink " + response.getBody());
             return;
         }
-        throw new CCommunicationException();
+        throw new TCommunicationException();
     }
 
 /*    public HashMap<String, Object> getKakaoProfile(String kakaoAccessToken) {

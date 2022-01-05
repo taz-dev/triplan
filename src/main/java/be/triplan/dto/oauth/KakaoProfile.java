@@ -19,6 +19,5 @@ public class KakaoProfile {
     @ToString
     public static class Properties {
         private String nickname;
-        //private String profile_image;
     }
 }

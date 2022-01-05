@@ -1,15 +1,16 @@
 package be.triplan.dto.member;
 
 import be.triplan.entity.Member;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberSocialLoginRequestDto {
-    private String accessToken;
+@Builder
+public class MemberLoginRequestDto {
     private String email;
 
     public Member toMember() {

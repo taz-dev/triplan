@@ -2,6 +2,7 @@ package be.triplan.controller;
 
 import be.triplan.config.security.JwtProvider;
 import be.triplan.dto.jwt.TokenDto;
+import be.triplan.dto.jwt.TokenRequestDto;
 import be.triplan.dto.member.MemberSignUpRequestDto;
 import be.triplan.dto.member.MemberSocialLoginRequestDto;
 import be.triplan.dto.member.MemberSocialSignUpRequestDto;
@@ -9,8 +10,8 @@ import be.triplan.dto.oauth.KakaoProfile;
 import be.triplan.dto.common.CommonResult;
 import be.triplan.dto.common.SingleResult;
 import be.triplan.entity.Member;
-import be.triplan.exception.CSocialAgreementException;
-import be.triplan.exception.CUserNotFoundException;
+import be.triplan.exception.TSocialAgreementException;
+import be.triplan.exception.TUserNotFoundException;
 import be.triplan.repository.MemberRepository;
 import be.triplan.service.oauth.KakaoService;
 import be.triplan.service.common.ResponseService;
@@ -37,11 +38,10 @@ public class SocialController {
     public CommonResult signUpByKakao(@RequestBody MemberSocialSignUpRequestDto socialSignUpRequestDto) {
         //카카오로부터 사용자 정보 요청
         KakaoProfile kakaoProfile = kakaoService.getKakaoProfile(socialSignUpRequestDto.getAccessToken());
-        //KakaoProfile kakaoProfile = kakaoService.getKakaoProfile("A1Mng3RB6fDpE0yIK_NnoVZxJY5sS7YHc55rZQo9dJgAAAF-Cw7Cuw");
-        if (kakaoProfile == null) throw new CUserNotFoundException();
+        if (kakaoProfile == null) throw new TUserNotFoundException();
         if (kakaoProfile.getKakao_account().getEmail() == null) {
             kakaoService.kakaoUnlink(socialSignUpRequestDto.getAccessToken());
-            throw new CSocialAgreementException();
+            throw new TSocialAgreementException();
         }
 
         Long memberId = signService.socialSignup(MemberSignUpRequestDto.builder()
@@ -60,11 +60,10 @@ public class SocialController {
     @PostMapping("/social/login/kakao")
     public SingleResult<TokenDto> loginByKakao(@RequestBody MemberSocialLoginRequestDto socialLoginRequestDto) {
         KakaoProfile kakaoProfile = kakaoService.getKakaoProfile(socialLoginRequestDto.getAccessToken());
-        //KakaoProfile kakaoProfile = kakaoService.getKakaoProfile("A1Mng3RB6fDpE0yIK_NnoVZxJY5sS7YHc55rZQo9dJgAAAF-Cw7Cuw");
-        if (kakaoProfile == null) throw new CUserNotFoundException();
+        if (kakaoProfile == null) throw new TUserNotFoundException();
 
         Member member = memberRepository.findByEmailAndProvider(kakaoProfile.getKakao_account().getEmail(), "kakao")
-                .orElseThrow(CUserNotFoundException::new);
+                .orElseThrow(TUserNotFoundException::new);
 
         return responseService.getSingleResult(jwtProvider.createToken(member.getId(), member.getRoles()));
     }
@@ -80,6 +79,10 @@ public class SocialController {
      */
 
     /**
-     * AppToken(Triplan AccessToken) 갱신
+     * jwt 갱신
      */
+    @PostMapping("/reissue")
+    public SingleResult<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
+        return responseService.getSingleResult(signService.reissue(tokenRequestDto));
+    }
 }

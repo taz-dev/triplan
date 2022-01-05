@@ -1,7 +1,9 @@
 package be.triplan.config.security;
 
 import be.triplan.dto.jwt.TokenDto;
-import be.triplan.exception.CAuthenticationEntryPointException;
+import be.triplan.entity.Member;
+import be.triplan.exception.TAuthenticationEntryPointException;
+import be.triplan.repository.MemberRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.Base64UrlCodec;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JwtProvider {
 
+    private final MemberRepository memberRepository;
+
     @Value("jwt.secret")
     private String secretKey;
     private String ROLES = "roles";
@@ -39,6 +43,9 @@ public class JwtProvider {
 
     //Jwt 생성
     public TokenDto createToken(Long memberId, List<String> roles) {
+
+        Member member = memberRepository.findById(memberId).get();
+
         //Claims에 member 구분을 위한 Member pk 및 authorities 목록 삽입
         Claims claims = Jwts.claims().setSubject(String.valueOf(memberId));
         claims.put(ROLES, roles);
@@ -65,6 +72,10 @@ public class JwtProvider {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .accessTokenExpireDate(accessTokenExpiry)
+                .nickname(member.getNickname())
+                .email(member.getEmail())
+                .nameTag(member.getNameTag())
+                .aboutMe(member.getAboutMe())
                 .build();
     }
 
@@ -74,13 +85,14 @@ public class JwtProvider {
         Claims claims = parseClaims(token);
         // 권한 정보가 없음
         if (claims.get(ROLES) == null) {
-            throw new CAuthenticationEntryPointException();
+            throw new TAuthenticationEntryPointException();
         }
         UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     //Jwt 토큰 복호화해서 가져오기
+    //만료된 토큰이여도 refresh token 검증 후 재발급할 수 있도록 claims를 반환해줌
     private Claims parseClaims(String token) {
         try {
             return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
@@ -90,6 +102,7 @@ public class JwtProvider {
     }
 
     //HTTP request의 Header에서 Token Parsing -> "X-AUTH-TOKEN: jwt"
+    //Request Header에 "X-AUTH-TOKEN"이 있으면 탈취해서 Jwt값으로 취함
     public String resolveToken(HttpServletRequest request) {
         return request.getHeader("X-AUTH-TOKEN");
     }
