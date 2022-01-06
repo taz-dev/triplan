@@ -1,9 +1,6 @@
 package be.triplan.entity;
 
-import be.triplan.dto.member.MemberResponseDto;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,7 +12,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Plan extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = IDENTITY)
@@ -47,17 +46,16 @@ public class Plan extends BaseTimeEntity {
         planImg.setPlan(this);
     }
 
-    //생성 메서드
-   public static Plan createPlan() {
-        Plan plan = new Plan();
-
-
-
-        return plan;
+    //비즈니스 로직
+    public void updateTitle(String planTitle) {
+        this.planTitle = planTitle;
     }
 
-    //비즈니스 로직
+    public void updateStartDate(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
+    }
 
-
-
+    public void updateEndDate(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
+    }
 }
