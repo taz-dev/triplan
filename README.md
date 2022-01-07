@@ -25,10 +25,11 @@
 ## 💾 Triplan DB구성도 및 흐름
 ![DB거의최종](https://user-images.githubusercontent.com/88026773/144074381-d990fe15-d06d-4600-99bc-10b398d0a59e.PNG)
 ![흐름_1119](https://user-images.githubusercontent.com/88026773/144074483-6344ffc6-d26b-4465-8b20-d6f3baebf541.PNG)
-
 <br>
 
 ## 🎮 Triplan 주요 기능
+#### 1. 카카오 회원가입 및 로그인 동작 방식
+![카카오 서버](https://user-images.githubusercontent.com/88026773/148561323-ce041d13-61ca-4830-8cc5-b6431eafe1a0.PNG)
 <br>
 
 ## 👩‍🔧 프로젝트에서 맡은 역할
