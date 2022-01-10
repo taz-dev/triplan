@@ -3,7 +3,7 @@ package be.triplan.service;
 import be.triplan.dto.plan.PlanRequestDto;
 import be.triplan.dto.plan.PlanResponseDto;
 import be.triplan.entity.Plan;
-import be.triplan.exception.TUserNotFoundException;
+import be.triplan.exception.UserNotFoundException;
 import be.triplan.repository.PlanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,14 +35,14 @@ public class PlanService {
 
     //계획 단건 조회
     public PlanResponseDto findOne(Long id) {
-        Plan plan = planRepository.findById(id).orElseThrow(TUserNotFoundException::new);
+        Plan plan = planRepository.findById(id).orElseThrow(UserNotFoundException::new);
         return new PlanResponseDto(plan);
     }
 
     //계획 수정
     @Transactional
     public Long update(Long id, PlanRequestDto planRequestDto) {
-        Plan plan = planRepository.findById(id).orElseThrow(TUserNotFoundException::new);
+        Plan plan = planRepository.findById(id).orElseThrow(UserNotFoundException::new);
         plan.updateTitle(planRequestDto.getPlanTitle());
         plan.updateStartDate(planRequestDto.getStartDateTime());
         plan.updateEndDate(planRequestDto.getEndDateTime());
