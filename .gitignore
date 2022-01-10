@@ -38,5 +38,3 @@ out/
 
 ### OAuth ###
 src/main/resources/application-oauth.yml
-### mail ###
-src/main/resources/application-mail.yml
