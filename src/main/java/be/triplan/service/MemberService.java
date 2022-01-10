@@ -3,13 +3,14 @@ package be.triplan.service;
 import be.triplan.dto.member.MemberRequestDto;
 import be.triplan.dto.member.MemberResponseDto;
 import be.triplan.entity.Member;
-import be.triplan.exception.TUserNotFoundException;
+import be.triplan.exception.UserNotFoundException;
 import be.triplan.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,12 +19,6 @@ import java.util.stream.Collectors;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
-/*    @Transactional
-    public Long save(MemberRequestDto memberRequestDto) {
-        Member member = memberRepository.save(memberRequestDto.toEntity());
-        return member.getId();
-    }*/
     
     //회원 전체 조회
     public List<MemberResponseDto> findAllMembers() {
@@ -35,14 +30,14 @@ public class MemberService {
 
     //회원 한명 조회
     public MemberResponseDto findOne(Long id) {
-        Member member = memberRepository.findById(id).orElseThrow(TUserNotFoundException::new);
+        Member member = memberRepository.findById(id).orElseThrow(UserNotFoundException::new);
         return new MemberResponseDto(member);
     }
 
     //회원 수정
     @Transactional
     public Long update(Long id, MemberRequestDto memberRequestDto) {
-        Member member = memberRepository.findById(id).orElseThrow(TUserNotFoundException::new);
+        Member member = memberRepository.findById(id).orElseThrow(UserNotFoundException::new);
         member.updateNickname(memberRequestDto.getNickname());
         member.updateAboutMe(memberRequestDto.getAboutMe());
         return id;
@@ -54,38 +49,14 @@ public class MemberService {
         memberRepository.deleteById(id);
     }
 
-    /*
-    *  public void sendCode(String email) {
-        String code = createCode();
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email);
-        message.setSubject("Triplan : 이메일 인증코드 안내");
-        message.setText("인증번호 : " + code);
-        sendEmail(message);
-    }
-
-    //8자리 인증코드 만들기
-    public String createCode() {
-        StringBuffer code = new StringBuffer();
+    //숫자 4자리 nameTag 만들기
+    public String createNameTag() {
+        StringBuffer tag = new StringBuffer();
         Random random = new Random();
 
-        for (int i = 0; i < 8; i++) {
-            int index = random.nextInt(3);
-
-            switch (index) {
-                case 0: //a~z
-                    code.append((char) (random.nextInt(26) + 97));
-                    break;
-                case 1: //A~Z
-                    code.append((char) (random.nextInt(26) + 65));
-                    break;
-                case 2: //0~9
-                    code.append(random.nextInt(10));
-                    break;
-            }
+        for (int i = 0; i < 4; i++) {
+            String num = "" + tag.append(random.nextInt(10)); //0~9 까지 랜덤으로
         }
-        return code.toString();
+        return tag.toString();
     }
-    *
-    * */
 }

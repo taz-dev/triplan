@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
-    private final MailService mailService;
     private final ResponseService responseService;
 
     //회원 목록 조회
@@ -43,7 +42,6 @@ public class MemberController {
                 .build();
 
         return responseService.getSingleResult(memberService.update(id, memberRequestDto));
-
     }
 
     //회원 삭제

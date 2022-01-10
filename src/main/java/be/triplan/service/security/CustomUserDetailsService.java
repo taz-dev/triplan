@@ -1,6 +1,6 @@
 package be.triplan.service.security;
 
-import be.triplan.exception.TUserNotFoundException;
+import be.triplan.exception.UserNotFoundException;
 import be.triplan.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,14 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
     @Override
-    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         return memberRepository.findById(Long.parseLong(userId))
-                .orElseThrow(TUserNotFoundException::new);
+                .orElseThrow(UserNotFoundException::new);
     }
 }

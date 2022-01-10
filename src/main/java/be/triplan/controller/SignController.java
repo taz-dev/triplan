@@ -4,14 +4,14 @@ import be.triplan.config.security.JwtProvider;
 import be.triplan.dto.jwt.TokenDto;
 import be.triplan.dto.jwt.TokenRequestDto;
 import be.triplan.dto.member.MemberSignUpRequestDto;
-import be.triplan.dto.member.MemberSocialLoginRequestDto;
-import be.triplan.dto.member.MemberSocialSignUpRequestDto;
+import be.triplan.dto.member.SocialLoginRequestDto;
+import be.triplan.dto.member.SocialSignUpRequestDto;
 import be.triplan.dto.oauth.KakaoProfile;
 import be.triplan.dto.common.CommonResult;
 import be.triplan.dto.common.SingleResult;
 import be.triplan.entity.Member;
-import be.triplan.exception.TSocialAgreementException;
-import be.triplan.exception.TUserNotFoundException;
+import be.triplan.exception.SocialAgreementException;
+import be.triplan.exception.UserNotFoundException;
 import be.triplan.repository.MemberRepository;
 import be.triplan.service.oauth.KakaoService;
 import be.triplan.service.common.ResponseService;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class SocialController {
+public class SignController {
 
     private final JwtProvider jwtProvider;
     private final MemberRepository memberRepository;
@@ -35,16 +35,18 @@ public class SocialController {
      * Kakao 소셜 회원가입
      */
     @PostMapping("/social/signup/kakao")
-    public CommonResult signUpByKakao(@RequestBody MemberSocialSignUpRequestDto socialSignUpRequestDto) {
+    public CommonResult signUpByKakao(@RequestBody SocialSignUpRequestDto socialSignUpRequestDto) {
         //카카오로부터 사용자 정보 요청
         KakaoProfile kakaoProfile = kakaoService.getKakaoProfile(socialSignUpRequestDto.getAccessToken());
-        if (kakaoProfile == null) throw new TUserNotFoundException();
+
+        if (kakaoProfile == null) throw new UserNotFoundException();
+
         if (kakaoProfile.getKakao_account().getEmail() == null) {
             kakaoService.kakaoUnlink(socialSignUpRequestDto.getAccessToken());
-            throw new TSocialAgreementException();
+            throw new SocialAgreementException();
         }
 
-        Long memberId = signService.socialSignup(MemberSignUpRequestDto.builder()
+        Long memberId = signService.signUpByKakao(MemberSignUpRequestDto.builder()
                 .email(kakaoProfile.getKakao_account().getEmail())
                 .nickname(kakaoProfile.getProperties().getNickname())
                 .provider("kakao")
@@ -58,13 +60,17 @@ public class SocialController {
      */
     @CrossOrigin
     @PostMapping("/social/login/kakao")
-    public SingleResult<TokenDto> loginByKakao(@RequestBody MemberSocialLoginRequestDto socialLoginRequestDto) {
+    public SingleResult<TokenDto> loginByKakao(@RequestBody SocialLoginRequestDto socialLoginRequestDto) {
         KakaoProfile kakaoProfile = kakaoService.getKakaoProfile(socialLoginRequestDto.getAccessToken());
-        if (kakaoProfile == null) throw new TUserNotFoundException();
+        if (kakaoProfile == null) throw new UserNotFoundException();
 
         Member member = memberRepository.findByEmailAndProvider(kakaoProfile.getKakao_account().getEmail(), "kakao")
-                .orElseThrow(TUserNotFoundException::new);
+                .orElseThrow(UserNotFoundException::new);
 
+        //TokenDto tokenDto = signService.loginByKakao();
+
+        //signService.socialLogin(socialLoginRequestDto); //refresh token DB 저장
+        
         return responseService.getSingleResult(jwtProvider.createToken(member.getId(), member.getRoles()));
     }
 
@@ -79,7 +85,7 @@ public class SocialController {
      */
 
     /**
-     * jwt 갱신
+     * access token, refresh token 재발급
      */
     @PostMapping("/reissue")
     public SingleResult<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {

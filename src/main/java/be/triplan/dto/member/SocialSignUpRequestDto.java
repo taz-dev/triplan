@@ -7,6 +7,6 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberSocialSignUpRequestDto {
+public class SocialSignUpRequestDto {
     private String accessToken;
 }

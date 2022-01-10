@@ -19,7 +19,7 @@ spring:
         format_sql: true
 
   profiles:
-    include: oauth, mail
+    include: oauth
 
 logging:
   level:

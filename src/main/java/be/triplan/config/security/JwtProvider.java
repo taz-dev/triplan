@@ -2,7 +2,7 @@ package be.triplan.config.security;
 
 import be.triplan.dto.jwt.TokenDto;
 import be.triplan.entity.Member;
-import be.triplan.exception.TAuthenticationEntryPointException;
+import be.triplan.exception.AuthenticationEntryPointException;
 import be.triplan.repository.MemberRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.Base64UrlCodec;
@@ -33,18 +33,18 @@ public class JwtProvider {
     private String ROLES = "roles";
     private final Long accessTokenExpiry = 60 * 60 * 1000L; //1시간
     private final Long refreshTokenExpiry = 14 * 24 * 60 * 60 * 1000L; //2주
+
     private final UserDetailsService userDetailsService;
 
     @PostConstruct
     protected void init() {
-        //암호화
         secretKey = Base64UrlCodec.BASE64URL.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    //Jwt 생성
+    // jwt 토큰 생성
     public TokenDto createToken(Long memberId, List<String> roles) {
 
-        Member member = memberRepository.findById(memberId).get();
+        Member member = memberRepository.findById(memberId).get(); //코드 리팩토링 필요
 
         //Claims에 member 구분을 위한 Member pk 및 authorities 목록 삽입
         Claims claims = Jwts.claims().setSubject(String.valueOf(memberId));
@@ -79,19 +79,19 @@ public class JwtProvider {
                 .build();
     }
 
-    //Jwt로 인증정보를 조회
+    // jwt 토큰으로 인증 정보 조회
     public Authentication getAuthentication(String token) {
         // Jwt 에서 claims 추출
         Claims claims = parseClaims(token);
         // 권한 정보가 없음
         if (claims.get(ROLES) == null) {
-            throw new TAuthenticationEntryPointException();
+            throw new AuthenticationEntryPointException();
         }
         UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    //Jwt 토큰 복호화해서 가져오기
+    // jwt 토큰 복호화해서 가져오기
     //만료된 토큰이여도 refresh token 검증 후 재발급할 수 있도록 claims를 반환해줌
     private Claims parseClaims(String token) {
         try {
@@ -107,7 +107,7 @@ public class JwtProvider {
         return request.getHeader("X-AUTH-TOKEN");
     }
 
-    //Jwt의 유효성 및 만료일자 확인
+    // jwt 토큰 유효성 및 만료일자 확인
     public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);

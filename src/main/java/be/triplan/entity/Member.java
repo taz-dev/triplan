@@ -34,12 +34,15 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(name = "name_tag")
     private String nameTag;
 
-    private String password; //UserDetails 때문에 있어야 됨
+    private String password;
 
     @Column(name = "about_me")
     private String aboutMe;
 
     private String provider; //Google, Kakao, Naver 구분
+
+    @Column(name = "refresh_token")
+    private String refreshToken;
 
     @OneToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "member_img_id")
@@ -58,6 +61,19 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     public void updateAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
+    }
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public static Member createProviderMember(String provider, String nickname, List<String> roles) {
+        Member member = new Member();
+        member.provider = provider;
+        member.nickname = nickname;
+        member.roles = roles;
+
+        return member;
     }
 
     //연관관계 메서드
