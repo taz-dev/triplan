@@ -44,6 +44,8 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(name = "refresh_token")
     private String refreshToken;
 
+    private String image;
+
     @OneToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "member_img_id")
     private MemberImg memberImg;
@@ -65,6 +67,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     public void updateRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public void updateImage(String image) {
+        this.image = image;
     }
 
     public static Member createProviderMember(String provider, String nickname, List<String> roles) {

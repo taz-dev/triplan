@@ -16,12 +16,14 @@ public class MemberSignUpRequestDto {
     private String email;
     private String nickname;
     private String provider;
+    private String nameTag;
 
     public Member toEntity() {
         return Member.builder()
                 .email(email)
                 .nickname(nickname)
                 .provider(provider)
+                .nameTag(nameTag)
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();
     }

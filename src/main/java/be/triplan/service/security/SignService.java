@@ -2,20 +2,15 @@ package be.triplan.service.security;
 
 import be.triplan.config.security.JwtProvider;
 import be.triplan.dto.jwt.TokenDto;
-import be.triplan.dto.jwt.TokenRequestDto;
+import be.triplan.dto.member.MemberAutoLoginResponseDto;
 import be.triplan.dto.member.MemberLoginRequestDto;
 import be.triplan.dto.member.MemberSignUpRequestDto;
-import be.triplan.dto.member.SocialLoginRequestDto;
 import be.triplan.entity.Member;
-import be.triplan.entity.security.RefreshToken;
-import be.triplan.exception.*;
+import be.triplan.exception.KakaoLoginFailedException;
+import be.triplan.exception.UserExistException;
 import be.triplan.repository.MemberRepository;
-import be.triplan.repository.security.RefreshTokenRepository;
-import be.triplan.service.oauth.KakaoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,10 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SignService {
 
     private final JwtProvider jwtProvider;
-    private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
-    private final RefreshTokenRepository refreshTokenRepository;
-    private final KakaoService kakaoService;
 
     @Transactional
     public Long signUpByKakao(MemberSignUpRequestDto memberSignRequestDto) {
@@ -43,27 +35,28 @@ public class SignService {
     @Transactional
     public TokenDto loginByKakao(MemberLoginRequestDto memberLoginRequestDto) {
         //회원 정보 존재하는지 확인
-/*        Member member = memberRepository.findByEmail(memberLoginRequestDto.getEmail())
-                .orElseThrow(EmailLoginFailedException::new);*/
-
         Member member = memberRepository.findByEmailAndProvider(memberLoginRequestDto.getEmail(), "kakao")
                 .orElseThrow(KakaoLoginFailedException::new);
 
         //access token, refresh token 발급
         TokenDto tokenDto = jwtProvider.createToken(member.getId(), member.getRoles());
+        member.updateRefreshToken(tokenDto.getRefreshToken());
 
         //refresh token 저장
-        RefreshToken refreshToken = RefreshToken.builder()
-                .key(member.getId())
-                .token(tokenDto.getRefreshToken())
-                .build();
-
-        refreshTokenRepository.save(refreshToken);
+        memberRepository.save(member);
 
         return tokenDto;
     }
 
+    //자동 로그인
     @Transactional
+    public MemberAutoLoginResponseDto autoLoginByKakao(String refreshToken) {
+        Member member = memberRepository.findByRefreshToken(refreshToken)
+                .orElseThrow(KakaoLoginFailedException::new);
+        return new MemberAutoLoginResponseDto(member);
+    }
+
+/*    @Transactional
     public TokenDto reissue(TokenRequestDto tokenRequestDto) {
         //만료된 refresh token 에어
         if (!jwtProvider.validateToken(tokenRequestDto.getRefreshToken())) {
@@ -90,6 +83,5 @@ public class SignService {
         refreshTokenRepository.save(updateRefreshToken);
 
         return newToken;
-    }
-
+    }*/
 }
