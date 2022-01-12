@@ -4,8 +4,10 @@ import be.triplan.dto.common.CommonResult;
 import be.triplan.dto.common.SingleResult;
 import be.triplan.dto.jwt.RefreshTokenDto;
 import be.triplan.dto.jwt.TokenDto;
-import be.triplan.dto.jwt.TokenRequestDto;
-import be.triplan.dto.member.*;
+import be.triplan.dto.member.MemberLoginRequestDto;
+import be.triplan.dto.member.MemberSignUpRequestDto;
+import be.triplan.dto.member.SocialLoginRequestDto;
+import be.triplan.dto.member.SocialSignUpRequestDto;
 import be.triplan.dto.oauth.KakaoProfile;
 import be.triplan.exception.SocialAgreementException;
 import be.triplan.exception.UserNotFoundException;
@@ -56,7 +58,6 @@ public class SignController {
     /**
      * Kakao 소셜 로그인
      */
-    @CrossOrigin
     @PostMapping("/social/login/kakao")
     public SingleResult<TokenDto> loginByKakao(@RequestBody SocialLoginRequestDto socialLoginRequestDto) {
         KakaoProfile kakaoProfile = kakaoService.getKakaoProfile(socialLoginRequestDto.getAccessToken());
@@ -70,12 +71,14 @@ public class SignController {
     }
 
     /**
-     * Kakao 자동 로그인 ---> 구글, 네이버 통합?
+     * Kakao 자동 로그인 ---> 구글, 네이버는 일단 나중에 생각
      * --> DB에 refresh token이 있을 경우 자동으로 로그인
+     * --> 다시 JWT 생성해서 DB에 refresh token UPDATE
      */
     @PostMapping("/social/autologin/kakao")
-    public SingleResult<MemberAutoLoginResponseDto> autoLoginByKakao(@RequestBody RefreshTokenDto refreshTokenDto) {
-        return responseService.getSingleResult(signService.autoLoginByKakao(refreshTokenDto.getRefreshToken()));
+    public SingleResult<TokenDto> autoLoginByKakao(@RequestBody RefreshTokenDto refreshTokenDto) {
+        TokenDto tokenDto = signService.autoLoginByKakao(refreshTokenDto.getRefreshToken());
+        return responseService.getSingleResult(tokenDto);
     }
 
     @GetMapping("/social/logout/kakao")

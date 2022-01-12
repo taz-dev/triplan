@@ -2,7 +2,6 @@ package be.triplan.service.security;
 
 import be.triplan.config.security.JwtProvider;
 import be.triplan.dto.jwt.TokenDto;
-import be.triplan.dto.member.MemberAutoLoginResponseDto;
 import be.triplan.dto.member.MemberLoginRequestDto;
 import be.triplan.dto.member.MemberSignUpRequestDto;
 import be.triplan.entity.Member;
@@ -47,13 +46,22 @@ public class SignService {
 
         return tokenDto;
     }
-
+    
     //자동 로그인
     @Transactional
-    public MemberAutoLoginResponseDto autoLoginByKakao(String refreshToken) {
+    public TokenDto autoLoginByKakao(String refreshToken) {
+        //refresh token 으로 회원 정보 가져오기
         Member member = memberRepository.findByRefreshToken(refreshToken)
                 .orElseThrow(KakaoLoginFailedException::new);
-        return new MemberAutoLoginResponseDto(member);
+
+        //access token, refresh token 재발급
+        TokenDto tokenDto = jwtProvider.createToken(member.getId(), member.getRoles());
+        member.updateRefreshToken(tokenDto.getRefreshToken());
+
+        //refresh token 업데이트
+        memberRepository.save(member);
+
+        return tokenDto;
     }
 
 /*    @Transactional
