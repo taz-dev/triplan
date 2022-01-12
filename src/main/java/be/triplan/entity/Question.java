@@ -1,8 +1,6 @@
 package be.triplan.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,7 +8,9 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Question {
 
     @Id @GeneratedValue
@@ -19,10 +19,9 @@ public class Question {
 
     private String title;
     private String content;
+    private String image;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-
-    //QuestionImg Entity 필요?
 }
