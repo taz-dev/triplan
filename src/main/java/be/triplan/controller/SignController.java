@@ -4,6 +4,7 @@ import be.triplan.dto.common.CommonResult;
 import be.triplan.dto.common.SingleResult;
 import be.triplan.dto.jwt.RefreshTokenDto;
 import be.triplan.dto.jwt.TokenDto;
+import be.triplan.dto.jwt.TokenRequestDto;
 import be.triplan.dto.member.MemberLoginRequestDto;
 import be.triplan.dto.member.MemberSignUpRequestDto;
 import be.triplan.dto.member.SocialLoginRequestDto;
@@ -30,7 +31,7 @@ public class SignController {
     private final ResponseService responseService;
 
     /**
-     * Kakao 소셜 회원가입
+     * KAKAO 소셜 회원가입
      */
     @PostMapping("/social/signup/kakao")
     public CommonResult signUpByKakao(@RequestBody SocialSignUpRequestDto socialSignUpRequestDto) {
@@ -56,7 +57,7 @@ public class SignController {
     }
     
     /**
-     * Kakao 소셜 로그인
+     * KAKAO 소셜 로그인
      */
     @PostMapping("/social/login/kakao")
     public SingleResult<TokenDto> loginByKakao(@RequestBody SocialLoginRequestDto socialLoginRequestDto) {
@@ -71,7 +72,7 @@ public class SignController {
     }
 
     /**
-     * Kakao 자동 로그인 ---> 구글, 네이버는 일단 나중에 생각
+     * KAKAO 자동 로그인 ---> 구글, 네이버는 일단 나중에 생각
      * --> DB에 refresh token이 있을 경우 자동으로 로그인
      * --> 다시 JWT 생성해서 DB에 refresh token UPDATE
      */
@@ -88,14 +89,14 @@ public class SignController {
     }
 
     /**
-     * Google 소셜 로그인
+     * GOOGLE 소셜 로그인
      */
 
     /**
-     * access token, refresh token 재발급
+     * Access Token, Refresh Token 재발급
      */
-/*    @PostMapping("/reissue")
+    @PostMapping("/reissue")
     public SingleResult<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
         return responseService.getSingleResult(signService.reissue(tokenRequestDto));
-    }*/
+    }
 }
