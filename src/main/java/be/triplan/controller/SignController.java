@@ -44,7 +44,7 @@ public class SignController {
             throw new SocialAgreementException();
         }
 
-        String nameTag = memberService.createNameTag();
+        String nameTag = memberService.createNameTag(); //새로운 nameTag
 
         Long memberId = signService.signUpByKakao(MemberSignUpRequestDto.builder()
                 .email(kakaoProfile.getKakao_account().getEmail())

@@ -73,22 +73,13 @@ public class Member extends BaseTimeEntity implements UserDetails {
         this.image = image;
     }
 
-    public static Member createProviderMember(String provider, String nickname, List<String> roles) {
-        Member member = new Member();
-        member.provider = provider;
-        member.nickname = nickname;
-        member.roles = roles;
-
-        return member;
-    }
-
     //연관관계 메서드
     public void setMemberImg(MemberImg memberImg) {
         this.memberImg = memberImg;
         memberImg.setMember(this);
     }
 
-    public void setPlanJoin(PlanJoin planJoin) {
+    public void addPlanJoin(PlanJoin planJoin) {
         planJoins.add(planJoin);
         planJoin.setMember(this);
     }

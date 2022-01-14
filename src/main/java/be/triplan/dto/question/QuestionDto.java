@@ -1,16 +1,17 @@
 package be.triplan.dto.question;
 
-import lombok.*;
+import be.triplan.entity.Question;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionRequestDto {
+public class QuestionDto {
 
-    private String accessToken;
-    private Long member_id;
     private String title;
     private String content;
     private String image;
