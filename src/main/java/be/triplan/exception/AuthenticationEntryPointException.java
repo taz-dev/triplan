@@ -1,7 +1,7 @@
 package be.triplan.exception;
 
 /**
- *  전달한 JWT가 정상적이지 않은 경우 발생시키는 예외
+ *  전달한 jwt 가 정상적이지 않은 경우 발생시키는 예외
  */
 public class AuthenticationEntryPointException extends RuntimeException {
 
