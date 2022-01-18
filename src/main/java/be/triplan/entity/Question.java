@@ -9,7 +9,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
-@Setter
+@Setter //나중에 삭제하기
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -19,9 +19,14 @@ public class Question extends BaseTimeEntity {
     @Column(name = "question_id")
     private Long id;
 
-    private String title;
-    private String content;
-    private String image;
+    @Column(name = "question_title")
+    private String questionTitle;
+
+    @Column(name = "question_content")
+    private String questionContent;
+
+    @Column(name = "question_image")
+    private String questionImage;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
@@ -36,10 +41,11 @@ public class Question extends BaseTimeEntity {
     //생성 메서드
     public static Question addQuestion(Member member, QuestionDto questionDto) {
         Question question = new Question();
+
         question.setMember(member);
-        question.setTitle(questionDto.getTitle());
-        question.setContent(questionDto.getContent());
-        question.setImage(questionDto.getImage());
+        question.setQuestionTitle(questionDto.getQuestionTitle());
+        question.setQuestionContent(questionDto.getQuestionContent());
+        question.setQuestionImage(questionDto.getQuestionImage());
 
         return question;
     }

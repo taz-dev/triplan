@@ -11,7 +11,7 @@ public class QuestionRequestDto {
 
     private String accessToken;
     private Long member_id;
-    private String title;
-    private String content;
-    private String image;
+    private String questionTitle;
+    private String questionContent;
+    private String questionImage;
 }

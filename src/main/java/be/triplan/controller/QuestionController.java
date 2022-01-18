@@ -17,15 +17,18 @@ public class QuestionController {
     private final ResponseService responseService;
     private final QuestionService questionService;
 
+    /**
+     * Question(문의) 저장
+     */
     @PostMapping("/questions")
     public SingleResult<Long> saveQuestion(@RequestBody QuestionRequestDto requestDto) {
 
         Long member_id = requestDto.getMember_id();
 
         QuestionDto questionDto = QuestionDto.builder()
-                .title(requestDto.getTitle())
-                .content(requestDto.getContent())
-                .image(requestDto.getImage())
+                .questionTitle(requestDto.getQuestionTitle())
+                .questionContent(requestDto.getQuestionContent())
+                .questionImage(requestDto.getQuestionImage())
                 .build();
 
         return responseService.getSingleResult(questionService.save(member_id, questionDto));
