@@ -1,5 +1,7 @@
 package be.triplan.entity;
 
+import be.triplan.dto.checklist.CheckListDto;
+import be.triplan.dto.question.QuestionDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +22,28 @@ public class Checklist {
 
     private String checkItem;
 
+    @Column(name = "is_selected")
+    private Boolean isSelected;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "plan_id")
     private Plan plan;
+
+    public void addPlan(Plan plan) {
+        this.plan = plan;
+        plan.getChecklists().add(this);
+    }
+
+    public void addCheckList(String checkItem, Boolean isSelected) {
+        this.checkItem = checkItem;
+        this.isSelected = isSelected;
+    }
+
+    public static Checklist createCheckList(Plan plan, CheckListDto checkListDto) {
+        Checklist checklist = new Checklist();
+        checklist.addPlan(plan);
+        checklist.addCheckList(checkListDto.getCheckItem(), checkListDto.getIsSelected());
+
+        return checklist;
+    }
 }
