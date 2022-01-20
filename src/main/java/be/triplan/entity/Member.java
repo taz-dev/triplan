@@ -34,7 +34,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(name = "name_tag")
     private String nameTag;
 
-    private String password;
+    private String password; //UserDetails 나중에 Principal로 분리
 
     @Column(name = "about_me")
     private String aboutMe;
@@ -44,7 +44,8 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(name = "refresh_token")
     private String refreshToken;
 
-    private String image;
+    @Column(name = "member_image")
+    private String memberImage;
 
     @OneToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "member_img_id")
@@ -56,7 +57,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @OneToMany(mappedBy = "member", cascade = ALL)
     private List<Question> questions = new ArrayList<>();
 
-    //비즈니스 로직
+    //비즈니스 로직(닉네임, 자기소개 / 닉네임, 자기소개, 이미지 두개로?)
     public void updateNickname(String nickname) {
         this.nickname = nickname;
     }
@@ -69,19 +70,14 @@ public class Member extends BaseTimeEntity implements UserDetails {
         this.refreshToken = refreshToken;
     }
 
-    public void updateImage(String image) {
-        this.image = image;
+    public void updateImage(String memberImage) {
+        this.memberImage = memberImage;
     }
 
     //연관관계 메서드
-    public void setMemberImg(MemberImg memberImg) {
+    public void changeMemberImg(MemberImg memberImg) {
         this.memberImg = memberImg;
         memberImg.setMember(this);
-    }
-
-    public void addPlanJoin(PlanJoin planJoin) {
-        planJoins.add(planJoin);
-        planJoin.setMember(this);
     }
 
     @ElementCollection(fetch = FetchType.EAGER)

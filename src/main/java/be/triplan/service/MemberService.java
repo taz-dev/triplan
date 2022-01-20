@@ -1,6 +1,5 @@
 package be.triplan.service;
 
-import be.triplan.dto.member.MemberRequestDto;
 import be.triplan.dto.member.MemberResponseDto;
 import be.triplan.entity.Member;
 import be.triplan.exception.UserNotFoundException;
@@ -36,10 +35,11 @@ public class MemberService {
 
     //회원 수정
     @Transactional
-    public Long update(Long id, MemberRequestDto memberRequestDto) {
+    public Long update(Long id, MemberResponseDto responseDto) {
         Member member = memberRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        member.updateNickname(memberRequestDto.getNickname());
-        member.updateAboutMe(memberRequestDto.getAboutMe());
+        member.updateNickname(responseDto.getNickname());
+        member.updateAboutMe(responseDto.getAboutMe());
+        member.updateImage(responseDto.getMemberImage());
         return id;
     }
 
@@ -51,12 +51,19 @@ public class MemberService {
 
     //숫자 4자리 nameTag 만들기
     public String createNameTag() {
-        StringBuffer tag = new StringBuffer();
-        Random random = new Random();
+        int length = 4;
+        char[] chars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
-        for (int i = 0; i < 4; i++) {
-            String num = "" + tag.append(random.nextInt(10)); //0~9 까지 랜덤으로
+        Random random = new Random();
+        StringBuffer tag = new StringBuffer();
+
+        for (int i = 0; i < length; i++) {
+            char ch = chars[random.nextInt(chars.length)];
+            tag.append(ch);
+            
+            //이미 사용중인 nameTag 는 memberRepository 에서 찾아 중복제거해주는 로직 짜기
         }
+        
         return tag.toString();
     }
 }
