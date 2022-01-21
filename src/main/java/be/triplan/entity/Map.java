@@ -1,8 +1,6 @@
 package be.triplan.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +9,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Map {
 
@@ -18,8 +18,15 @@ public class Map {
     @Column(name = "map_id")
     private Long id;
 
-    private String location;
+    private String locationX;
+    private String locationY;
+    private String sampleA;
+    private String sampleB;
 
     @OneToOne(mappedBy = "map", fetch = LAZY)
     private Schedule schedule;
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
 }

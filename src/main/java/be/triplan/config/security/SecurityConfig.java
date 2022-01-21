@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/schedules/**",
                             "/questions/**",
                             "/checklists/**",
-                            "/map/**").permitAll() //토큰 없어도 호출할 수 있도록 설정
+                            "/maps/**").permitAll() //토큰 없어도 호출할 수 있도록 설정
                     .anyRequest().hasRole("USER")
                 .and()
                     .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
