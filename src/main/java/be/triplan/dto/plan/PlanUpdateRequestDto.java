@@ -12,8 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlanRequestDto {
-
+public class PlanUpdateRequestDto {
     private String planTitle;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
