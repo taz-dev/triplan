@@ -3,12 +3,10 @@ package be.triplan.service.security;
 import be.triplan.config.security.JwtProvider;
 import be.triplan.dto.jwt.TokenDto;
 import be.triplan.dto.jwt.TokenRequestDto;
-import be.triplan.dto.member.MemberLoginRequestDto;
-import be.triplan.dto.member.MemberSignUpRequestDto;
+import be.triplan.dto.oauth.KakaoRequestDto;
 import be.triplan.entity.Member;
 import be.triplan.exception.KakaoLoginFailedException;
 import be.triplan.exception.RefreshTokenException;
-import be.triplan.exception.UserExistException;
 import be.triplan.exception.UserNotFoundException;
 import be.triplan.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,23 +22,18 @@ public class SignService {
 
     private final JwtProvider jwtProvider;
     private final MemberRepository memberRepository;
-    
-    //카카오 회원가입
-    @Transactional
-    public Long signUpByKakao(MemberSignUpRequestDto memberSignRequestDto) {
-        if (memberRepository
-                .findByEmailAndProvider(memberSignRequestDto.getEmail(), memberSignRequestDto.getProvider())
-                .isPresent()
-        ) throw new UserExistException(); //이미 가입된 유저 Exception
 
-        return memberRepository.save(memberSignRequestDto.toEntity()).getId();
-    }
-    
-    //카카오 로그인
+    //카카오 회원가입 및 로그인
     @Transactional
-    public TokenDto loginByKakao(MemberLoginRequestDto memberLoginRequestDto) {
-        //회원 정보 존재하는지 확인
-        Member member = memberRepository.findByEmailAndProvider(memberLoginRequestDto.getEmail(), "kakao")
+    public TokenDto signUpAndLoginByKakao(KakaoRequestDto requestDto) {
+        //DB에 회원 정보 존재하는지 확인(email, provider)
+        //회원 정보가 없을 경우 -> 회원가입
+        if (memberRepository.findByEmailAndProvider(requestDto.getEmail(), requestDto.getProvider()).isEmpty()) {
+            memberRepository.save(requestDto.toEntity());
+        }
+
+        //회원 정보가 있을 경우 -> 로그인
+        Member member = memberRepository.findByEmailAndProvider(requestDto.getEmail(), "kakao")
                 .orElseThrow(KakaoLoginFailedException::new);
 
         //access token, refresh token 발급

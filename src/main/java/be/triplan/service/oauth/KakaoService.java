@@ -26,7 +26,7 @@ public class KakaoService {
         headers.set("Authorization", "Bearer " + kakaoAccessToken);
 
         String requestUrl = "https://kapi.kakao.com/v2/user/me";
-        //if (requestUrl == null) throw new CommunicationException();
+        if (requestUrl == null) throw new CommunicationException();
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
 
@@ -34,6 +34,7 @@ public class KakaoService {
             ResponseEntity<String> response = restTemplate.postForEntity(requestUrl, request, String.class);
             if (response.getStatusCode() == HttpStatus.OK)
                 return gson.fromJson(response.getBody(), KakaoProfile.class);
+            log.error("header : " + response.getHeaders());
 
         } catch (Exception e) {
             log.error(e.toString());

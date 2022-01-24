@@ -1,12 +1,11 @@
-package be.triplan.dto.member;
+package be.triplan.dto.oauth;
 
 import lombok.*;
 
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SocialSignUpRequestDto {
+public class KakaoAccessTokenDto {
     private String accessToken;
 }
