@@ -8,7 +8,7 @@
 <br>
 
 ## 👨‍👨‍👦‍👦 프로젝트 기간 & 팀원
-* 기간 : 2021.11.08 ~ ing
+* 기간 : 2021.11.08 ~ 2022.02
 * **TeamTriplan**
   * PM : 김환
   * FrontEnd : 최은석
@@ -36,5 +36,6 @@
 * OAuth2.0을 이용한 google, naver, kakao 회원가입 및 로그인 구현
 * JWT(Access Token, Refresh Token)로 보안성 강화 및 사용자 편의성 고도화
 <br>
-
+<!--
 ## 💡 프로젝트를 통해 배운점
+--!>
