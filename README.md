@@ -28,9 +28,11 @@
 <br>
 
 ## 🎮 Triplan 주요 기능
-#### 1. 카카오 회원가입 및 로그인 동작 방식
+#### 1. 카카오 회원가입 및 로그인
 ![카카오 서버](https://user-images.githubusercontent.com/88026773/148561323-ce041d13-61ca-4830-8cc5-b6431eafe1a0.PNG)
-<br>
+<p align="center">[그림1] 카카오 회원가입 및 로그인 동작방식</p>
+
+#### 2. 내 여행일정 친구에게 공유하기
 
 ## 👩‍🔧 프로젝트에서 맡은 역할
 * OAuth2.0을 이용한 google, naver, kakao 회원가입 및 로그인 구현
