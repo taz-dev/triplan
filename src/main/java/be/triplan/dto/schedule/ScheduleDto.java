@@ -7,8 +7,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class ScheduleResponseDto {
-
+public class ScheduleDto {
     private Long id;
     private String scheduleTitle;
     private int price;
@@ -17,7 +16,7 @@ public class ScheduleResponseDto {
     private String memo;
     private Map map;
 
-    public ScheduleResponseDto(Schedule schedule) {
+    public ScheduleDto(Schedule schedule) {
         this.id = schedule.getId();
         this.scheduleTitle = schedule.getScheduleTitle();
         this.price = schedule.getPrice();

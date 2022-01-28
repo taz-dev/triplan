@@ -1,7 +1,7 @@
 package be.triplan.service;
 
-import be.triplan.dto.schedule.ScheduleRequestDto;
-import be.triplan.dto.schedule.ScheduleResponseDto;
+import be.triplan.dto.schedule.ScheduleInsertRequestDto;
+import be.triplan.dto.schedule.ScheduleDto;
 import be.triplan.entity.Schedule;
 import be.triplan.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,20 +20,24 @@ public class ScheduleService {
 
     //일정 저장
     @Transactional
-    public Long save(ScheduleRequestDto scheduleRequestDto) {
-        Schedule schedule = scheduleRepository.save(scheduleRequestDto.toEntity());
+    public Long save(ScheduleInsertRequestDto requestDto) {
+        Schedule schedule = scheduleRepository.save(requestDto.toEntity());
         return schedule.getId();
     }
 
     //일정 전체 조회
-    public List<ScheduleResponseDto> findAllSchedules() {
+    public List<ScheduleDto> findAllSchedules() {
         return scheduleRepository.findAll()
                 .stream()
-                .map(ScheduleResponseDto::new)
+                .map(ScheduleDto::new)
                 .collect(Collectors.toList());
     }
 
     //일정 단건 조회
+    public ScheduleDto findOne(Long id) {
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow();
+        return new ScheduleDto(schedule);
+    }
 
     //일정 수정
 
