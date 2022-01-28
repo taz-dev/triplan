@@ -1,6 +1,5 @@
 package be.triplan.entity;
 
-import be.triplan.dto.schedule.ScheduleResponseDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -51,5 +50,14 @@ public class Schedule extends BaseTimeEntity {
     public void setMap(Map map) {
         this.map = map;
         map.setSchedule(this);
+    }
+
+    //생성 메서드
+    public static Schedule createSchedule(Map map, Plan plan) {
+        Schedule schedule = new Schedule();
+        schedule.setMap(map);
+        schedule.setPlan(plan);
+
+        return schedule;
     }
 }
