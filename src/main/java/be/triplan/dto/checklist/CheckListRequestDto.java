@@ -3,7 +3,6 @@ package be.triplan.dto.checklist;
 import lombok.*;
 
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

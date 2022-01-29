@@ -3,8 +3,6 @@ package be.triplan.controller;
 import be.triplan.dto.checklist.CheckListDto;
 import be.triplan.dto.checklist.CheckListRequestDto;
 import be.triplan.dto.common.SingleResult;
-import be.triplan.dto.question.QuestionDto;
-import be.triplan.dto.question.QuestionRequestDto;
 import be.triplan.service.ChecklistService;
 import be.triplan.service.common.ResponseService;
 import lombok.RequiredArgsConstructor;
