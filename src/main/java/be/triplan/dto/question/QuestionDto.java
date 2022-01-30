@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionDto {
-
     private String questionTitle;
     private String questionContent;
     private String questionImage;

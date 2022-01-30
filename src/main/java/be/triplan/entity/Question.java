@@ -9,7 +9,6 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
-@Setter //나중에 삭제하기
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -33,19 +32,22 @@ public class Question extends BaseTimeEntity {
     private Member member;
 
     //연관관계 메서드
-    public void setMember(Member member) {
+    public void addMember(Member member) {
         this.member = member;
         member.getQuestions().add(this);
     }
 
-    //생성 메서드
-    public static Question addQuestion(Member member, QuestionDto questionDto) {
-        Question question = new Question();
+    public void addQuestion(String questionTitle, String questionContent, String questionImage) {
+        this.questionTitle = questionTitle;
+        this.questionContent = questionContent;
+        this.questionImage = questionImage;
+    }
 
-        question.setMember(member);
-        question.setQuestionTitle(questionDto.getQuestionTitle());
-        question.setQuestionContent(questionDto.getQuestionContent());
-        question.setQuestionImage(questionDto.getQuestionImage());
+    //생성 메서드
+    public static Question createQuestion(Member member, QuestionDto questionDto) {
+        Question question = new Question();
+        question.addMember(member);
+        question.addQuestion(questionDto.getQuestionTitle(), questionDto.getQuestionContent(), questionDto.getQuestionImage());
 
         return question;
     }

@@ -1,7 +1,7 @@
 package be.triplan.controller;
 
 import be.triplan.dto.common.SingleResult;
-import be.triplan.dto.question.QuestionRequestDto;
+import be.triplan.dto.question.QuestionInsertRequestDto;
 import be.triplan.dto.question.QuestionDto;
 import be.triplan.service.QuestionService;
 import be.triplan.service.common.ResponseService;
@@ -18,12 +18,12 @@ public class QuestionController {
     private final QuestionService questionService;
 
     /**
-     * Question(문의) 저장
+     * 문의 저장
      */
     @PostMapping("/questions")
-    public SingleResult<Long> saveQuestion(@RequestBody QuestionRequestDto requestDto) {
+    public SingleResult<Long> saveQuestion(@RequestBody QuestionInsertRequestDto requestDto) {
 
-        Long member_id = requestDto.getMember_id();
+        Long member_id = requestDto.getMemberId();
 
         QuestionDto questionDto = QuestionDto.builder()
                 .questionTitle(requestDto.getQuestionTitle())

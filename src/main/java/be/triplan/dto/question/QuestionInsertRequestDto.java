@@ -7,10 +7,9 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionRequestDto {
-
+public class QuestionInsertRequestDto {
     private String accessToken;
-    private Long member_id;
+    private Long memberId;
     private String questionTitle;
     private String questionContent;
     private String questionImage;

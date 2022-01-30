@@ -18,12 +18,12 @@ public class QuestionService {
     private final MemberRepository memberRepository;
     private final QuestionRepository questionRepository;
 
+    //문의 저장
     @Transactional
     public Long save(Long member_id, QuestionDto questionDto) {
 
-        //Member member = memberRepository.findById(member_id).get();
         Member member = memberRepository.findById(member_id).orElseThrow(UserNotFoundException::new);
-        Question question = Question.addQuestion(member, questionDto);
+        Question question = Question.createQuestion(member, questionDto);
         questionRepository.save(question);
 
         return question.getId();
