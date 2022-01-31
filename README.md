@@ -13,7 +13,6 @@
   * PM : 김환
   * FrontEnd : 최은석
   * BackEnd : 박정현
-  * DevOps : 임태형
   * UI/UX 디자이너 : 김종표
 <br>
 
