@@ -35,6 +35,7 @@ public class PlanService {
         Plan plan  = Plan.createPlan(member, planDto);
         planRepository.save(plan);
 
+        //scheduleRepository.save(schedule);
         return plan.getId();
     }
 

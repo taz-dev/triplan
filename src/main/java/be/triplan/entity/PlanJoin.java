@@ -1,6 +1,7 @@
 package be.triplan.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,7 +27,17 @@ public class PlanJoin {
     @JoinColumn(name = "plan_id")
     private Plan plan;
 
-    public void setMember(Member member) {
+    //연관관계 메서드
+    public void InviteFriend(Member member, Plan plan) {
         this.member = member;
+        member.getPlanJoins().add(this);
+        this.plan = plan;
+        plan.getPlanJoins().add(this);
+    }
+
+    @Builder
+    public PlanJoin(Member member, Plan plan) {
+        this.member = member;
+        this.plan = plan;
     }
 }

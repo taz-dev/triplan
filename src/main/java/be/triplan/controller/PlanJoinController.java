@@ -12,10 +12,4 @@ import org.springframework.web.bind.annotation.RestController;
 public class PlanJoinController {
 
     private final PlanJoinService planJoinService;
-
-    @GetMapping("/planJoins/{memberId}")
-    public PlanJoin findPlanJoin(@PathVariable Long memberId) { //반환값 바꿔주기
-        return planJoinService.findMemberId(memberId);
-    }
-
 }
