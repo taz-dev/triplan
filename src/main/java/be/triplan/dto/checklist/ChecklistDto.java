@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CheckListDto {
+public class ChecklistDto {
     private String checkItem;
     private Boolean isSelected;
 }

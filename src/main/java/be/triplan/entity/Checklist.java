@@ -1,7 +1,6 @@
 package be.triplan.entity;
 
-import be.triplan.dto.checklist.CheckListDto;
-import be.triplan.dto.question.QuestionDto;
+import be.triplan.dto.checklist.ChecklistDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,7 +38,7 @@ public class Checklist {
         this.isSelected = isSelected;
     }
 
-    public static Checklist createCheckList(Plan plan, CheckListDto checkListDto) {
+    public static Checklist createCheckList(Plan plan, ChecklistDto checkListDto) {
         Checklist checklist = new Checklist();
         checklist.addPlan(plan);
         checklist.addCheckList(checkListDto.getCheckItem(), checkListDto.getIsSelected());

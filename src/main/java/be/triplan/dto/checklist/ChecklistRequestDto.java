@@ -6,8 +6,8 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CheckListRequestDto {
-    private String accessToken;
+public class ChecklistRequestDto {
+    //private String accessToken;
     private Long planId;
     private String checkItem;
     private Boolean isSelected;
