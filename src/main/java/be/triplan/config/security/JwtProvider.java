@@ -42,20 +42,20 @@ public class JwtProvider {
     }
 
     // jwt 토큰 생성
-    public TokenDto createToken(Long memberId, List<String> roles) {
+    public TokenDto createToken(Long memberId) {
 
         Member member = memberRepository.findById(memberId).get(); //코드 리팩토링 필요
 
         //Claims에 member 구분을 위한 Member pk 및 authorities 목록 삽입
-        Claims claims = Jwts.claims().setSubject(String.valueOf(memberId));
-        claims.put(ROLES, roles);
+        //Claims claims = Jwts.claims().setSubject(String.valueOf(memberId));
+        //claims.put(ROLES, roles);
 
         //생성날짜, 만료날짜를 위한 Date
         Date now = new Date();
 
         String accessToken = Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
-                .setClaims(claims)
+                //.setClaims(claims)
                 .setIssuedAt(now)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .setExpiration(new Date(now.getTime() + accessTokenExpiry))
@@ -92,7 +92,7 @@ public class JwtProvider {
     }
 
     // jwt 토큰 복호화해서 가져오기
-    //만료된 토큰이여도 refresh token 검증 후 재발급할 수 있도록 claims를 반환해줌
+    // 만료된 토큰이여도 refresh token 검증 후 재발급할 수 있도록 claims를 반환해줌
     private Claims parseClaims(String token) {
         try {
             return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
@@ -101,8 +101,8 @@ public class JwtProvider {
         }
     }
 
-    //HTTP request의 Header에서 Token Parsing -> "X-AUTH-TOKEN: jwt"
-    //Request Header에 "X-AUTH-TOKEN"이 있으면 탈취해서 Jwt값으로 취함
+    // HTTP request의 Header에서 Token Parsing -> "X-AUTH-TOKEN" : "jwt 토큰 값"
+    // Request Header에 "X-AUTH-TOKEN"이 있으면 탈취해서 jwt 로 취함
     public String resolveToken(HttpServletRequest request) {
         return request.getHeader("X-AUTH-TOKEN");
     }

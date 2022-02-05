@@ -30,9 +30,9 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         log.info("[Verifying token]");
         log.info(((HttpServletRequest) request).getRequestURL().toString());
 
-        if (token != null && jwtProvider.validateToken(token)) {
-            Authentication authentication = jwtProvider.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        if (token != null && jwtProvider.validateToken(token)) { //token 검증
+            Authentication authentication = jwtProvider.getAuthentication(token); //인증 객체 생성
+            SecurityContextHolder.getContext().setAuthentication(authentication); //SecurityContextHolder에 인증 객체 저장
         }
         chain.doFilter(request, response);
     }

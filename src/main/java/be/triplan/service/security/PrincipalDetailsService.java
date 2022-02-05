@@ -19,18 +19,16 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class PrincipalDetailsService implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
-
+    //private final MemberRepository memberRepository;
+    private final MemberService memberService;
 /*    @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         return memberRepository.findById(Long.parseLong(userId))
                 .orElseThrow(UserNotFoundException::new);
     }*/
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member principal = memberRepository.findByNickname(username)
-                .orElseThrow(UserNotFoundException::new);
-
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member principal = memberService.findMemberByEmail(email);
         return new PrincipalDetail(principal);
     }
 }
