@@ -34,7 +34,7 @@
 #### 2. 내 여행일정 친구에게 공유하기
 
 ## 👩‍🔧 프로젝트에서 맡은 역할
-* OAuth2.0을 이용한 google, naver, kakao 회원가입 및 로그인 구현
+* OAuth2.0을 이용한 kakao 회원가입 및 로그인 구현(google, naver 추후 구현)
 * JWT(Access Token, Refresh Token)로 보안성 강화 및 사용자 편의성 고도화
 <br>
 <!--
