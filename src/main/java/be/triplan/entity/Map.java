@@ -29,4 +29,11 @@ public class Map {
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
+
+    public void updateMap(String locationX, String locationY, String sampleA, String sampleB) {
+        this.locationX = locationX;
+        this.locationY = locationY;
+        this.sampleA = sampleA;
+        this.sampleB = sampleB;
+    }
 }
