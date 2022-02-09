@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChecklistRequestDto {
+public class ChecklistInsertRequestDto {
     //private String accessToken;
     private Long planId;
     private String checkItem;

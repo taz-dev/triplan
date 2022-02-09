@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChecklistDto {
-    //private Long checklistId;
+public class ChecklistUpdateRequestDto {
+    private Long checklistId;
     private String checkItem;
     private Boolean isSelected;
 }

@@ -1,7 +1,8 @@
 package be.triplan.controller;
 
 import be.triplan.dto.checklist.ChecklistDto;
-import be.triplan.dto.checklist.ChecklistRequestDto;
+import be.triplan.dto.checklist.ChecklistInsertRequestDto;
+import be.triplan.dto.checklist.ChecklistUpdateRequestDto;
 import be.triplan.dto.common.CommonResult;
 import be.triplan.dto.common.SingleResult;
 import be.triplan.service.ChecklistService;
@@ -20,16 +21,32 @@ public class ChecklistController {
      * 체크리스트 저장
      */
     @PostMapping("/checklists")
-    public SingleResult<Long> saveChecklist(@RequestBody ChecklistRequestDto requestDto) {
+    public SingleResult<Long> saveChecklist(@RequestBody ChecklistInsertRequestDto requestDto) {
 
         Long plan_id = requestDto.getPlanId();
 
-        ChecklistDto checkListDto = ChecklistDto.builder()
+        ChecklistDto responseDto = ChecklistDto.builder()
                 .checkItem(requestDto.getCheckItem())
                 .isSelected(requestDto.getIsSelected())
                 .build();
 
-        return responseService.getSingleResult(checklistService.save(plan_id, checkListDto));
+        return responseService.getSingleResult(checklistService.save(plan_id, responseDto));
+    }
+
+    /**
+     * 체크리스트 수정
+     */
+    @PutMapping("/checklists")
+    public SingleResult<Long> updateCheckList(@RequestBody ChecklistUpdateRequestDto requestDto) {
+
+        Long checklist_id = requestDto.getChecklistId();
+
+        ChecklistDto responseDto = ChecklistDto.builder()
+                .checkItem(requestDto.getCheckItem())
+                .isSelected(requestDto.getIsSelected())
+                .build();
+
+        return responseService.getSingleResult(checklistService.update(checklist_id, responseDto));
     }
 
     /**

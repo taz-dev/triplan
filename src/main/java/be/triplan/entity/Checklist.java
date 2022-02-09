@@ -38,6 +38,14 @@ public class Checklist {
         this.isSelected = isSelected;
     }
 
+    public void updateCheckItem(String checkItem) {
+        this.checkItem = checkItem;
+    }
+
+    public void updateIsSelected(Boolean isSelected) {
+        this.isSelected = isSelected;
+    }
+
     public static Checklist createCheckList(Plan plan, ChecklistDto checkListDto) {
         Checklist checklist = new Checklist();
         checklist.addPlan(plan);
