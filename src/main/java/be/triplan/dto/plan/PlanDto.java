@@ -1,7 +1,6 @@
 package be.triplan.dto.plan;
 
 import be.triplan.entity.Plan;
-import be.triplan.entity.PlanStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,14 +18,20 @@ public class PlanDto {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String planImage;
-    private PlanStatus planStatus;
+    private String locationX;
+    private String locationY;
+    private String address;
+    private String addressDetail;
 
     public PlanDto(Plan plan) {
         this.planId = plan.getId();
         this.planTitle = plan.getPlanTitle();
-        this.startDateTime = plan.getStartDateTime();
-        this.endDateTime = plan.getEndDateTime();
+        this.startDateTime = plan.getStartDate();
+        this.endDateTime = plan.getEndDate();
         this.planImage = plan.getPlanImage();
-        this.planStatus = plan.getPlanStatus();
+        this.locationX = plan.getLocationX();
+        this.locationY = plan.getLocationY();
+        this.address = plan.getAddress();
+        this.addressDetail = plan.getAddressDetail();
     }
 }

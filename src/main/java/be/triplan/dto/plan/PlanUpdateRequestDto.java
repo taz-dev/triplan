@@ -20,8 +20,8 @@ public class PlanUpdateRequestDto {
     public Plan toEntity() {
         return Plan.builder()
                 .planTitle(planTitle)
-                .startDateTime(startDateTime)
-                .endDateTime(endDateTime)
+                .startDate(startDateTime)
+                .endDate(endDateTime)
                 .build();
     }
 }

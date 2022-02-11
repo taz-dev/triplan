@@ -1,21 +1,19 @@
 package be.triplan.service;
 
-import be.triplan.dto.checklist.CheckListDto;
-import be.triplan.dto.plan.PlanUpdateRequestDto;
 import be.triplan.dto.plan.PlanDto;
-import be.triplan.entity.*;
+import be.triplan.dto.plan.PlanUpdateRequestDto;
+import be.triplan.entity.Member;
+import be.triplan.entity.Plan;
+import be.triplan.entity.PlanJoin;
 import be.triplan.exception.PlanNotFoundException;
-import be.triplan.exception.UserNotFoundException;
-import be.triplan.repository.MapRepository;
 import be.triplan.repository.MemberRepository;
+import be.triplan.repository.PlanJoinRepository;
 import be.triplan.repository.PlanRepository;
-import be.triplan.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,18 +22,24 @@ import java.util.stream.Collectors;
 public class PlanService {
 
     private final PlanRepository planRepository;
+    private final PlanJoinRepository planJoinRepository;
     private final MemberRepository memberRepository;
-    private final ScheduleRepository scheduleRepository;
-    private final MapRepository mapRepository;
+    private final PlanJoinService planJoinService;
 
     //계획 저장
     @Transactional
     public Long save(Long member_id, PlanDto planDto) {
         Member member = memberRepository.findById(member_id).get();
-        Plan plan  = Plan.createPlan(member, planDto);
+        Plan plan  = Plan.createPlan(planDto);
+
+        PlanJoin planJoin = PlanJoin.builder()
+                .member(member)
+                .plan(plan)
+                .build();
+
+        planJoinRepository.save(planJoin);
         planRepository.save(plan);
 
-        //scheduleRepository.save(schedule);
         return plan.getId();
     }
 
@@ -53,14 +57,11 @@ public class PlanService {
         return new PlanDto(plan);
     }
 
-    //계획 수정
+    //계획 수정(제목, 시작날짜, 끝날짜)
     @Transactional
     public Long update(Long id, PlanUpdateRequestDto planRequestDto) {
         Plan plan = planRepository.findById(id).orElseThrow(PlanNotFoundException::new);
-        plan.updateTitle(planRequestDto.getPlanTitle());
-        plan.updateStartDate(planRequestDto.getStartDateTime());
-        plan.updateEndDate(planRequestDto.getEndDateTime());
-
+        plan.updatePlan(planRequestDto.getPlanTitle(), planRequestDto.getStartDateTime(), planRequestDto.getEndDateTime());
         return id;
     }
 
@@ -68,11 +69,5 @@ public class PlanService {
     @Transactional
     public void delete(Long id) {
         planRepository.deleteById(id);
-    }
-    
-    //계획 status 변경
-    @Transactional
-    public void changeStatus() {
-
     }
 }

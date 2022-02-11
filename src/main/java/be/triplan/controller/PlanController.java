@@ -3,11 +3,11 @@ package be.triplan.controller;
 import be.triplan.dto.common.CommonResult;
 import be.triplan.dto.common.ListResult;
 import be.triplan.dto.common.SingleResult;
-import be.triplan.dto.plan.PlanInsertRequestDto;
-import be.triplan.dto.plan.PlanSelectRequestDto;
-import be.triplan.dto.plan.PlanUpdateRequestDto;
 import be.triplan.dto.plan.PlanDto;
-import be.triplan.service.PlanJoinService;
+import be.triplan.dto.plan.PlanInsertRequestDto;
+import be.triplan.dto.plan.PlanUpdateRequestDto;
+import be.triplan.entity.Member;
+import be.triplan.service.MemberService;
 import be.triplan.service.PlanService;
 import be.triplan.service.common.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class PlanController {
 
     private final PlanService planService;
-    private final PlanJoinService joinService;
+    private final MemberService memberService;
     private final ResponseService responseService;
 
     /**
@@ -29,40 +29,33 @@ public class PlanController {
     @PostMapping("/plans")
     public SingleResult<Long> savePlan(@RequestBody PlanInsertRequestDto requestDto) {
 
-        Long member_id = requestDto.getMemberId();
+/*        String email = principal.getName();
+        Member member = memberService.findMemberByEmail(email);
+        Long member_id = member.getId();*/
 
-        PlanDto responseDto = PlanDto.builder()
+        Member member = memberService.findMemberByEmail(requestDto.getEmail());
+
+        PlanDto planDto = PlanDto.builder()
                 .planTitle(requestDto.getPlanTitle())
-                .startDateTime(requestDto.getStartDateTime())
-                .endDateTime(requestDto.getEndDateTime())
+                .startDateTime(requestDto.getStartDate())
+                .endDateTime(requestDto.getEndDate())
+                .planImage(requestDto.getPlanImage())
+                .locationX(requestDto.getLocationX())
+                .locationY(requestDto.getLocationY())
+                .address(requestDto.getAddress())
+                .addressDetail(requestDto.getAddressDetail())
                 .build();
 
-        return responseService.getSingleResult(planService.save(member_id, responseDto));
-
+        return responseService.getSingleResult(planService.save(member.getId(), planDto));
     }
-/*    @PostMapping("/plans")
-    public SingleResult<Long> savePlan(
-            @RequestParam String planTitle,
-            @RequestParam LocalDateTime startDateTime,
-            @RequestParam LocalDateTime endDateTime) {
-
-        PlanInsertRequestDto planRequestDto = PlanInsertRequestDto.builder()
-                .planTitle(planTitle)
-                .startDateTime(startDateTime)
-                .endDateTime(endDateTime)
-                .build();
-
-        return responseService.getSingleResult(planService.save(planRequestDto));
-    }*/
 
     /**
      * 계획 전체목록 조회
      */
-/*    @GetMapping("/plans")
-    public ListResult<PlanDto> findAllPlans(@RequestBody PlanSelectRequestDto requestDto) {
-        Long member_id = joinService.findPlanByMemberId();
+    @GetMapping("/plans")
+    public ListResult<PlanDto> findAllPlans() {
         return responseService.getListResult(planService.findAllPlans());
-    }*/
+    }
 
     /**
      * 계획 단건 조회
@@ -82,13 +75,13 @@ public class PlanController {
             @RequestParam LocalDateTime startDateTime,
             @RequestParam LocalDateTime endDateTime) {
 
-        PlanUpdateRequestDto planRequestDto = PlanUpdateRequestDto.builder()
+        PlanUpdateRequestDto planUpdateRequestDto = PlanUpdateRequestDto.builder()
                 .planTitle(planTitle)
                 .startDateTime(startDateTime)
                 .endDateTime(endDateTime)
                 .build();
 
-        return responseService.getSingleResult(planService.update(id, planRequestDto));
+        return responseService.getSingleResult(planService.update(id, planUpdateRequestDto));
     }
 
     /**
@@ -99,5 +92,4 @@ public class PlanController {
         planService.delete(id);
         return responseService.getSuccessResult();
     }
-
 }
