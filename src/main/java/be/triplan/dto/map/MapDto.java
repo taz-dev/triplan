@@ -14,14 +14,14 @@ public class MapDto {
     private Long mapId;
     private String locationX;
     private String locationY;
-    private String sampleA;
-    private String sampleB;
+    private String address;
+    private String addressDetail;
 
     public MapDto(Map map) {
         this.mapId = map.getId();
         this.locationX = map.getLocationX();
         this.locationY = map.getLocationY();
-        this.sampleA = map.getSampleA();
-        this.sampleB = map.getSampleB();
+        this.address = map.getAddress();
+        this.addressDetail = map.getAddressDetail();
     }
 }

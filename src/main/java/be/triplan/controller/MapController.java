@@ -54,8 +54,8 @@ public class MapController {
         MapDto responseDto = MapDto.builder()
                 .locationX(requestDto.getLocationX())
                 .locationY(requestDto.getLocationY())
-                .sampleA(requestDto.getSampleA())
-                .sampleB(requestDto.getSampleB())
+                .address(requestDto.getAddress())
+                .addressDetail(requestDto.getAddressDetail())
                 .build();
 
         return responseService.getSingleResult(mapService.update(map_id, responseDto));

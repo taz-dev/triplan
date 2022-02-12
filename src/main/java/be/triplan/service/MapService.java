@@ -43,7 +43,7 @@ public class MapService {
     @Transactional
     public Long update(Long id, MapDto responseDto) {
         Map map = mapRepository.findById(id).orElseThrow();
-        map.updateMap(responseDto.getLocationX(), responseDto.getLocationY(), responseDto.getSampleA(), responseDto.getSampleB());
+        map.updateMap(responseDto.getLocationX(), responseDto.getLocationY(), responseDto.getAddress(), responseDto.getAddressDetail());
         return id;
     }
 

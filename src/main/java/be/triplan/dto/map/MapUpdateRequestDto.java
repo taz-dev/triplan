@@ -13,6 +13,6 @@ public class MapUpdateRequestDto {
     private Long mapId;
     private String locationX;
     private String locationY;
-    private String sampleA;
-    private String sampleB;
+    private String address;
+    private String addressDetail;
 }

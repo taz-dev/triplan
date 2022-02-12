@@ -3,6 +3,7 @@ package be.triplan.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.print.attribute.standard.MediaSize;
 
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -18,10 +19,19 @@ public class Map {
     @Column(name = "map_id")
     private Long id;
 
+    @Column(name = "location_x")
     private String locationX;
+
+    @Column(name = "location_y")
     private String locationY;
-    private String sampleA;
-    private String sampleB;
+
+    private String address;
+
+    @Column(name = "address_detail")
+    private String addressDetail;
+
+    @Column(name = "map_image")
+    private String mapImage;
 
     @OneToOne(mappedBy = "map", fetch = LAZY)
     private Schedule schedule;
@@ -30,10 +40,10 @@ public class Map {
         this.schedule = schedule;
     }
 
-    public void updateMap(String locationX, String locationY, String sampleA, String sampleB) {
+    public void updateMap(String locationX, String locationY, String address, String addressDetail) {
         this.locationX = locationX;
         this.locationY = locationY;
-        this.sampleA = sampleA;
-        this.sampleB = sampleB;
+        this.address = address;
+        this.addressDetail = addressDetail;
     }
 }

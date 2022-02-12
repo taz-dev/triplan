@@ -13,15 +13,17 @@ import lombok.NoArgsConstructor;
 public class MapInsertRequestDto {
     private String locationX;
     private String locationY;
-    private String sampleA;
-    private String sampleB;
+    private String address;
+    private String addressDetail;
+    private String mapImage;
 
     public Map toEntity() {
         return Map.builder()
                 .locationX(locationX)
                 .locationY(locationY)
-                .sampleA(sampleA)
-                .sampleB(sampleB)
+                .address(address)
+                .addressDetail(addressDetail)
+                .mapImage(mapImage)
                 .build();
     }
 }
