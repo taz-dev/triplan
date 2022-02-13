@@ -4,6 +4,7 @@ import be.triplan.dto.checklist.ChecklistDto;
 import be.triplan.dto.checklist.ChecklistInsertRequestDto;
 import be.triplan.dto.checklist.ChecklistUpdateRequestDto;
 import be.triplan.dto.common.CommonResult;
+import be.triplan.dto.common.ListResult;
 import be.triplan.dto.common.SingleResult;
 import be.triplan.service.ChecklistService;
 import be.triplan.service.common.ResponseService;
@@ -31,6 +32,14 @@ public class ChecklistController {
                 .build();
 
         return responseService.getSingleResult(checklistService.save(plan_id, responseDto));
+    }
+
+    /**
+     * 체크리스트 전체 조회
+     */
+    @GetMapping("/checklists")
+    public ListResult<ChecklistDto> findAllChecklists() {
+        return responseService.getListResult(checklistService.findAllChecklists());
     }
 
     /**

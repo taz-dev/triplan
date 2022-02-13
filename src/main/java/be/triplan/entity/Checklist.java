@@ -46,10 +46,11 @@ public class Checklist {
         this.isSelected = isSelected;
     }
 
-    public static Checklist createCheckList(Plan plan, ChecklistDto checkListDto) {
+    //생성 메서드
+    public static Checklist createChecklist(Plan plan, ChecklistDto checklistDto) {
         Checklist checklist = new Checklist();
         checklist.addPlan(plan);
-        checklist.addCheckList(checkListDto.getCheckItem(), checkListDto.getIsSelected());
+        checklist.addCheckList(checklistDto.getCheckItem(), checklistDto.getIsSelected());
 
         return checklist;
     }

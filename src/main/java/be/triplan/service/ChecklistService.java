@@ -1,16 +1,16 @@
 package be.triplan.service;
 
 import be.triplan.dto.checklist.ChecklistDto;
-import be.triplan.dto.member.MemberDto;
 import be.triplan.entity.Checklist;
-import be.triplan.entity.Member;
 import be.triplan.entity.Plan;
-import be.triplan.exception.UserNotFoundException;
 import be.triplan.repository.ChecklistRepository;
 import be.triplan.repository.PlanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,11 +24,19 @@ public class ChecklistService {
     @Transactional
     public Long save(Long plan_id, ChecklistDto checklistDto) {
         Plan plan = planRepository.findById(plan_id).orElseThrow();
-        Checklist checklist = Checklist.createCheckList(plan, checklistDto);
+        Checklist checklist = Checklist.createChecklist(plan, checklistDto);
         checklistRepository.save(checklist);
         return checklist.getId();
     }
 
+    //체크리스트 전체 조회
+    public List<ChecklistDto> findAllChecklists() {
+        return checklistRepository.findAll()
+                .stream()
+                .map(ChecklistDto::new)
+                .collect(Collectors.toList());
+    }
+    
     //체크리스트 수정
     @Transactional
     public Long update(Long id, ChecklistDto responseDto) {
