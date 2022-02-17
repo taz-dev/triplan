@@ -1,4 +1,4 @@
-package be.triplan.service.security;
+package be.triplan.service;
 
 import be.triplan.config.security.JwtProvider;
 import be.triplan.dto.jwt.TokenDto;

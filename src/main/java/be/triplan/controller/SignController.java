@@ -12,7 +12,7 @@ import be.triplan.exception.UserNotFoundException;
 import be.triplan.service.MemberService;
 import be.triplan.service.common.ResponseService;
 import be.triplan.service.oauth.KakaoService;
-import be.triplan.service.security.SignService;
+import be.triplan.service.SignService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -73,14 +73,18 @@ public class SignController {
     }
 
     /**
-     * GOOGLE 소셜 로그인
-     */
-
-    /**
      * Access Token, Refresh Token 재발급
      */
     @PostMapping("/reissue")
     public SingleResult<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
         return responseService.getSingleResult(signService.reissue(tokenRequestDto));
     }
+
+    /**
+     * GOOGLE 소셜 회원가입 및 로그인
+     */
+
+    /**
+     * NAVER 소셜 회원가입 및 로그인
+     */
 }

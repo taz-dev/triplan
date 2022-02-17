@@ -42,20 +42,20 @@ public class JwtProvider {
     }
 
     // jwt 토큰 생성
-    public TokenDto createToken(Long memberId) {
+    public TokenDto createToken(Long memberId, List<String> roles) {
 
         Member member = memberRepository.findById(memberId).get(); //코드 리팩토링 필요
 
         //Claims에 member 구분을 위한 Member pk 및 authorities 목록 삽입
-        //Claims claims = Jwts.claims().setSubject(String.valueOf(memberId));
-        //claims.put(ROLES, roles);
+        Claims claims = Jwts.claims().setSubject(String.valueOf(memberId));
+        claims.put(ROLES, roles);
 
         //생성날짜, 만료날짜를 위한 Date
         Date now = new Date();
 
         String accessToken = Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
-                //.setClaims(claims)
+                .setClaims(claims)
                 .setIssuedAt(now)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .setExpiration(new Date(now.getTime() + accessTokenExpiry))

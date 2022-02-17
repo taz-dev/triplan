@@ -6,6 +6,5 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 public class RefreshTokenDto {
-    private String grantType;
     private String refreshToken;
 }

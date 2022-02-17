@@ -12,7 +12,6 @@ public class TokenDto {
     private String accessToken;
     private String refreshToken;
     private Long accessTokenExpireDate;
-
     private String nickname;
     private String email;
     private String nameTag;

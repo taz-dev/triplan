@@ -1,6 +1,5 @@
 package be.triplan.dto.jwt;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,10 +10,4 @@ import lombok.Setter;
 public class TokenRequestDto {
     String accessToken;
     String refreshToken;
-
-    @Builder
-    public TokenRequestDto(String accessToken, String refreshToken) {
-        this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
-    }
 }
