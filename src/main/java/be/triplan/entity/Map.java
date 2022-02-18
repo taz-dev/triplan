@@ -3,7 +3,6 @@ package be.triplan.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.print.attribute.standard.MediaSize;
 
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;

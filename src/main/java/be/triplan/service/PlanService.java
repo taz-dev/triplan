@@ -24,7 +24,6 @@ public class PlanService {
     private final PlanRepository planRepository;
     private final PlanJoinRepository planJoinRepository;
     private final MemberRepository memberRepository;
-    private final PlanJoinService planJoinService;
 
     //계획 저장
     @Transactional

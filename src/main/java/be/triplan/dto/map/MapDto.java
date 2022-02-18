@@ -16,6 +16,7 @@ public class MapDto {
     private String locationY;
     private String address;
     private String addressDetail;
+    private String planImage;
 
     public MapDto(Map map) {
         this.mapId = map.getId();
@@ -23,5 +24,6 @@ public class MapDto {
         this.locationY = map.getLocationY();
         this.address = map.getAddress();
         this.addressDetail = map.getAddressDetail();
+        this.planImage = map.getMapImage();
     }
 }

@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -33,24 +34,13 @@ public class Plan extends BaseTimeEntity {
     @Column(name = "plan_image")
     private String planImage;
 
-    @Column(name = "location_x")
-    private String locationX;
-
-    @Column(name = "location_y")
-    private String locationY;
-
-    private String address;
-
-    @Column(name = "address_detail")
-    private String addressDetail;
-
     @OneToMany(mappedBy = "plan")
     private List<Checklist> checklists = new ArrayList<>();
 
     @OneToMany(mappedBy = "plan")
     private List<Schedule> schedules = new ArrayList<>();
 
-    @OneToMany(mappedBy = "plan")
+    @OneToMany(mappedBy = "plan", cascade = ALL)
     private List<PlanJoin> planJoins = new ArrayList<>();
 
     public void addPlanJoins(PlanJoin planJoin) {
@@ -70,15 +60,11 @@ public class Plan extends BaseTimeEntity {
         planJoin.setPlan(this);
     }
 
-    public void addPlan(String planTitle, LocalDateTime startDate, LocalDateTime endDate, String planImage, String locationX, String locationY, String address, String addressDetail) {
+    public void addPlan(String planTitle, LocalDateTime startDate, LocalDateTime endDate, String planImage) {
         this.planTitle = planTitle;
         this.startDate = startDate;
         this.endDate = endDate;
         this.planImage = planImage;
-        this.locationX = locationX;
-        this.locationY = locationY;
-        this.address = address;
-        this.addressDetail = addressDetail;
     }
 
     //생성 메서드
@@ -86,8 +72,7 @@ public class Plan extends BaseTimeEntity {
 
         Plan plan = new Plan();
 
-        plan.addPlan(planDto.getPlanTitle(), planDto.getStartDateTime(), planDto.getEndDateTime(), planDto.getPlanImage(),
-                     planDto.getLocationX(), planDto.getLocationY(), planDto.getAddress(), planDto.getAddressDetail());
+        plan.addPlan(planDto.getPlanTitle(), planDto.getStartDateTime(), planDto.getEndDateTime(), planDto.getPlanImage());
 
         for (PlanJoin planJoin : planJoins) {
             plan.addFriends(planJoin);

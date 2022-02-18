@@ -18,10 +18,14 @@ public class PlanDto {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String planImage;
-    private String locationX;
-    private String locationY;
-    private String address;
-    private String addressDetail;
+    /*private String startLocationX;
+    private String startLocationY;
+    private String startAddress;
+    private String startAddressDetail;
+    private String endLocationX;
+    private String endLocationY;
+    private String endAddress;
+    private String endAddressDetail;*/
 
     public PlanDto(Plan plan) {
         this.planId = plan.getId();
@@ -29,9 +33,13 @@ public class PlanDto {
         this.startDateTime = plan.getStartDate();
         this.endDateTime = plan.getEndDate();
         this.planImage = plan.getPlanImage();
-        this.locationX = plan.getLocationX();
-        this.locationY = plan.getLocationY();
-        this.address = plan.getAddress();
-        this.addressDetail = plan.getAddressDetail();
+        /*this.startLocationX = plan.getStartLocationX();
+        this.startLocationY = plan.getStartLocationY();
+        this.startAddress = plan.getStartAddress();
+        this.startAddressDetail = plan.getStartAddressDetail();
+        this.endLocationX = plan.getEndLocationX();
+        this.endLocationY = plan.getEndLocationY();
+        this.endAddress = plan.getEndAddress();
+        this.endAddressDetail = plan.getEndAddressDetail();*/
     }
 }
