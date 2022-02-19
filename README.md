@@ -22,7 +22,7 @@
 <br>
 
 ## 💾 Triplan DB구성도 및 흐름
-![TriplanDB](https://user-images.githubusercontent.com/88026773/149624041-45503293-8e1f-462f-9e6d-6d0414f51da3.PNG)
+![triplanDB](https://user-images.githubusercontent.com/88026773/154690467-be5a4780-09ec-4007-9419-04a124951226.PNG)
 ![흐름_1119](https://user-images.githubusercontent.com/88026773/144074483-6344ffc6-d26b-4465-8b20-d6f3baebf541.PNG)
 <br>
 
