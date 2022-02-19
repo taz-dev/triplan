@@ -27,12 +27,9 @@ public class PlanJoin {
     @JoinColumn(name = "plan_id")
     private Plan plan;
 
-    //연관관계 메서드
-    public void InviteFriend(Member member, Plan plan) {
-        this.member = member;
-        member.getPlanJoins().add(this);
+
+    public void setPlan(Plan plan) {
         this.plan = plan;
-        plan.getPlanJoins().add(this);
     }
 
     @Builder
