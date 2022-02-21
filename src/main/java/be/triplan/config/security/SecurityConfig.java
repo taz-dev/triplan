@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
                     .antMatchers("/social/**",
                             "/members/**",
-                            "/planjoins/**",
+                            "/joins/**",
                             "/plans/**",
                             "/schedules/**",
                             "/questions/**",
@@ -40,5 +40,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
     }
-
 }
