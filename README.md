@@ -1,8 +1,8 @@
 # 🛫 우리들의 여행계획을 책임지는 Triplan
 
 ### 🔎 프로젝트 소개
-여행 계획을 세우는데 어려움을 겪는 사람들을 위해 쉽고 빠르게 여행 계획을 세울 수 있도록 도와주는 앱
-<br>
+* 여행 계획을 세우는데 어려움을 겪는 사람들을 위해 쉽고 빠르게 여행 계획을 세울 수 있도록 도와주는 앱
+* **[TriplanFigma](https://www.figma.com/file/PrBkB1681e36HTfxL7NacJ/Trip-Planner?node-id=0%3A1)** 👈 눌러보시면 프로젝트의 전체적인 디자인을 볼 수 있어요!
 <br>
 
 ### 👨‍👨‍👦‍👦 프로젝트 기간 & 팀원
@@ -19,7 +19,7 @@
 * BackEnd : JAVA(11), SpringBoot, Spring Security, Spring Data JPA, MariaDB 
 <br>
 
-### 💾 Triplan DB diagram [[🔎Figma🔎](https://www.figma.com/file/PrBkB1681e36HTfxL7NacJ/Trip-Planner?node-id=0%3A1)]
+### 💾 Triplan DB diagram
 ![triplanDB](https://user-images.githubusercontent.com/88026773/154690467-be5a4780-09ec-4007-9419-04a124951226.PNG)
 ![흐름_1119](https://user-images.githubusercontent.com/88026773/144074483-6344ffc6-d26b-4465-8b20-d6f3baebf541.PNG)
 <br>
