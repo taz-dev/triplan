@@ -82,9 +82,9 @@
 |   |           |   |       KakaoRequestDto.java
 |   |           |   |
 |   |           |   +---plan
-|   |           |   |       ChecklistDto.java
-|   |           |   |       ChecklistInsertRequestDto.java
-|   |           |   |       ChecklistUpdateRequestDto.java
+|   |           |   |       PlanDto.java
+|   |           |   |       PlanInsertRequestDto.java
+|   |           |   |       PlanUpdateRequestDto.java
 |   |           |   |
 |   |           |   +---planjoin
 |   |           |   |       PlanJoinDto.java
