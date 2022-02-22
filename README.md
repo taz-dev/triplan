@@ -25,7 +25,7 @@
 <br>
 
 ### 🗂 프로젝트 구조
-```
+```j
 +---main
 |   +---java\be\triplan
 |   |           +---TriplanApplication.java
