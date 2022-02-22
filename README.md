@@ -25,6 +25,124 @@
 <br>
 
 ### 🗂 프로젝트 구조
+```
++---main
+|   +---java\be\triplan
+|   |           +---TriplanApplication.java
+|   |           |
+|   |           +---config
+|   |           |   \---security
+|   |           |           CorsConfig.java
+|   |           |           JwtAuthenticationFilter.java
+|   |           |           JwtProvider.java
+|   |           |           PrincipalDetail.java
+|   |           |           PrincipalDetailService.java
+|   |           |           SecurityConfig.java
+|   |           |   
+|   |           +---controller
+|   |           |       ChecklistController.java
+|   |           |       MapController.java
+|   |           |       MemberController.java
+|   |           |       PlanController.java
+|   |           |       PlanJoinController.java
+|   |           |       MemberController.java
+|   |           |       QuestionController.java
+|   |           |       ScheduleController.java
+|   |           |       SignController.java
+|   |           |
+|   |           +---dto
+|   |           |   +---checklist
+|   |           |   |       ChecklistDto.java
+|   |           |   |       ChecklistInsertRequestDto.java
+|   |           |   |       ChecklistUpdateRequestDto.java
+|   |           |   |
+|   |           |   +---common
+|   |           |   |       CommonResponse.java
+|   |           |   |       CommonResult.java
+|   |           |   |       ListResult.java
+|   |           |   |       SingleResult.java
+|   |           |   |
+|   |           |   +---jwt
+|   |           |   |       RefreshTokenDto.java
+|   |           |   |       TokenDto.java
+|   |           |   |       TokenRequestDto.java
+|   |           |   |
+|   |           |   +---map
+|   |           |   |       MapDto.java
+|   |           |   |       MapInsertRequestDto.java
+|   |           |   |       MapUpdateRequestDto.java
+|   |           |   |
+|   |           |   +---member
+|   |           |   |       MemberDto.java
+|   |           |   |       MemberUpdateRequestDto.java
+|   |           |   |
+|   |           |   +---oauth
+|   |           |   |       KakaoAccessTokenDto.java
+|   |           |   |       KakaoProfile.java
+|   |           |   |       KakaoRequestDto.java
+|   |           |   |
+|   |           |   +---plan
+|   |           |   |       ChecklistDto.java
+|   |           |   |       ChecklistInsertRequestDto.java
+|   |           |   |       ChecklistUpdateRequestDto.java
+|   |           |   |
+|   |           |   +---planjoin
+|   |           |   |       PlanJoinDto.java
+|   |           |   |
+|   |           |   +---question
+|   |           |   |       QuestionDto.java
+|   |           |   |       QuestionInsertRequestDto.java
+|   |           |   |
+|   |           |   \---schedule
+|   |           |           ScheduleDto.java
+|   |           |           ScheduleInsertRequestDto.java
+|   |           |   
+|   |           +---entity
+|   |           |       BaseTimeEntity.java
+|   |           |       Checklist.java
+|   |           |       Map.java
+|   |           |       Member.java
+|   |           |       Plan.java
+|   |           |       PlanJoin.java
+|   |           |       Question.java
+|   |           |       Schedule.java
+|   |           |   
+|   |           +---exception
+|   |           |       AuthenticationEntryPointException.java
+|   |           |       CommunicationException.java
+|   |           |       KakaoCommunicationFailureException.java
+|   |           |       KakaoLoginFailedException.java
+|   |           |       NameTagAlreadyInUseException.java
+|   |           |       PlanNotFoundException.java
+|   |           |       RefreshTokenException.java
+|   |           |       SocialAgreementException.java
+|   |           |       UserExistException.java
+|   |           |       UserNotFoundException.java
+|   |           |   
+|   |           +---repository
+|   |           |       ChecklistRepository.java
+|   |           |       MapRepository.java
+|   |           |       MemberRepository.java
+|   |           |       PlanJoinRepository.java
+|   |           |       PlanRepository.java
+|   |           |       QuestionRepository.java
+|   |           |       ScheduleRepository.java
+|   |           |
+|   |           \---service
+|   |               |       ChecklistService.java
+|   |               |       MapService.java
+|   |               |       MemberService.java
+|   |               |       PlanJoinService.java
+|   |               |       PlanService.java
+|   |               |       QuestionService.java
+|   |               |       ScheduleService.java
+|   |               |       SignService.java
+|   |               +---common
+|   |               |       ResponseService.java
+|   |               |
+|   |               \---oauth
+|   |                       KakaoService.java 
+```
 <br>
 
 ### 🎮 Triplan 주요 기능
