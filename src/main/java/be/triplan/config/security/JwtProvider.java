@@ -81,14 +81,21 @@ public class JwtProvider {
 
     // jwt 토큰으로 인증 정보 조회
     public Authentication getAuthentication(String token) {
-        // Jwt 에서 claims 추출
+/*        // Jwt 에서 claims 추출
         Claims claims = parseClaims(token);
         // 권한 정보가 없음
         if (claims.get(ROLES) == null) {
             throw new AuthenticationEntryPointException();
         }
         UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());*/
+        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getMemberPk(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    }
+
+    //토큰에서 회원 정보 얻어내기
+    private String getMemberPk(String token) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
     // jwt 토큰 복호화해서 가져오기
