@@ -21,10 +21,8 @@
 
 ### 💾 Triplan DB diagram
 ![triplanDB](https://user-images.githubusercontent.com/88026773/154690467-be5a4780-09ec-4007-9419-04a124951226.PNG)
-![흐름_1119](https://user-images.githubusercontent.com/88026773/144074483-6344ffc6-d26b-4465-8b20-d6f3baebf541.PNG)
 <br>
 <br>
-
 ### 🗂 프로젝트 구조
 ```j
 +---main
@@ -160,4 +158,6 @@
 * <br>
 <!--
 ## 💡 프로젝트를 통해 배운점
+
+![흐름_1119](https://user-images.githubusercontent.com/88026773/144074483-6344ffc6-d26b-4465-8b20-d6f3baebf541.PNG)
 --!>
