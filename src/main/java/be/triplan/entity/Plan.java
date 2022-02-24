@@ -72,7 +72,7 @@ public class Plan extends BaseTimeEntity {
 
         Plan plan = new Plan();
 
-        plan.addPlan(planDto.getPlanTitle(), planDto.getStartDateTime(), planDto.getEndDateTime(), planDto.getPlanImage());
+        plan.addPlan(planDto.getPlanTitle(), planDto.getStartDate(), planDto.getEndDate(), planDto.getPlanImage());
 
         for (PlanJoin planJoin : planJoins) {
             plan.addFriends(planJoin);

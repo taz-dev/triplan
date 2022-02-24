@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlanInsertRequestDto {
-    private String email;
     private String planTitle;
     private LocalDateTime startDate;
     private LocalDateTime endDate;

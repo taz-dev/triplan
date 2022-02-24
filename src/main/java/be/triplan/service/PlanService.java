@@ -58,9 +58,9 @@ public class PlanService {
 
     //계획 수정(제목, 시작날짜, 끝날짜)
     @Transactional
-    public Long update(Long id, PlanUpdateRequestDto planRequestDto) {
+    public Long update(Long id, PlanDto planDto) {
         Plan plan = planRepository.findById(id).orElseThrow(PlanNotFoundException::new);
-        plan.updatePlan(planRequestDto.getPlanTitle(), planRequestDto.getStartDateTime(), planRequestDto.getEndDateTime());
+        plan.updatePlan(planDto.getPlanTitle(), planDto.getStartDate(), planDto.getEndDate());
         return id;
     }
 

@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 public class PlanDto {
     private Long planId;
     private String planTitle;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private String planImage;
     /*private String startLocationX;
     private String startLocationY;
@@ -30,8 +30,8 @@ public class PlanDto {
     public PlanDto(Plan plan) {
         this.planId = plan.getId();
         this.planTitle = plan.getPlanTitle();
-        this.startDateTime = plan.getStartDate();
-        this.endDateTime = plan.getEndDate();
+        this.startDate = plan.getStartDate();
+        this.endDate = plan.getEndDate();
         this.planImage = plan.getPlanImage();
         /*this.startLocationX = plan.getStartLocationX();
         this.startLocationY = plan.getStartLocationY();

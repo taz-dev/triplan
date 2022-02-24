@@ -13,15 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlanUpdateRequestDto {
+    private Long planId;
     private String planTitle;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
-
-    public Plan toEntity() {
-        return Plan.builder()
-                .planTitle(planTitle)
-                .startDate(startDateTime)
-                .endDate(endDateTime)
-                .build();
-    }
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 }
