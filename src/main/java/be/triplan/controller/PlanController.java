@@ -9,20 +9,21 @@ import be.triplan.dto.plan.PlanUpdateRequestDto;
 import be.triplan.entity.Map;
 import be.triplan.entity.Member;
 import be.triplan.repository.MapRepository;
-import be.triplan.service.MemberService;
+import be.triplan.service.PlanJoinService;
 import be.triplan.service.PlanService;
 import be.triplan.service.common.ResponseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class PlanController {
 
     private final PlanService planService;
-    private final MemberService memberService;
+    private final PlanJoinService planJoinService;
     private final ResponseService responseService;
     private final MapRepository mapRepository;
 
@@ -33,15 +34,16 @@ public class PlanController {
      * 3. 이미지 값은 도착위치 이미지값으로 저장
      */
     @PostMapping("/plans")
-    public SingleResult<Long> savePlan(@RequestBody PlanInsertRequestDto requestDto) {
+    public SingleResult<Long> savePlan(@AuthenticationPrincipal Member member,
+                                       @RequestBody PlanInsertRequestDto requestDto) {
 
-        Member member = memberService.findMemberByEmail(requestDto.getEmail());
+        //Member member = memberService.findMemberByEmail(requestDto.getEmail());
 
         //1
         PlanDto planDto = PlanDto.builder()
                 .planTitle(requestDto.getPlanTitle())
-                .startDateTime(requestDto.getStartDate())
-                .endDateTime(requestDto.getEndDate())
+                .startDate(requestDto.getStartDate())
+                .endDate(requestDto.getEndDate())
                 .planImage(requestDto.getMap().get(1).getPlanImage()) //3
                 .build();
         //2
@@ -61,7 +63,16 @@ public class PlanController {
     }
 
     /**
-     * 계획 전체목록 조회 -> 유저마다 저장한 계획 보여지게 member_id??
+     * 나의 계획 전체목록 조회
+     */
+    @GetMapping("/plans/my")
+    public ListResult<PlanDto> findMyPlans(@AuthenticationPrincipal Member member) {
+        List<PlanDto> myPlan = planJoinService.findMyPlan(member.getId());
+        return responseService.getListResult(myPlan);
+    }
+
+    /**
+     * 계획 전체목록 조회
      */
     @GetMapping("/plans")
     public ListResult<PlanDto> findAllPlans() {
@@ -80,19 +91,15 @@ public class PlanController {
      * 계획 수정
      */
     @PutMapping("/plans")
-    public SingleResult<Long> updatePlan(
-            @RequestParam Long id,
-            @RequestParam String planTitle,
-            @RequestParam LocalDateTime startDateTime,
-            @RequestParam LocalDateTime endDateTime) {
+    public SingleResult<Long> updatePlan(@RequestBody PlanUpdateRequestDto requestDto) {
 
-        PlanUpdateRequestDto planUpdateRequestDto = PlanUpdateRequestDto.builder()
-                .planTitle(planTitle)
-                .startDateTime(startDateTime)
-                .endDateTime(endDateTime)
+        PlanDto planDto = PlanDto.builder()
+                .planTitle(requestDto.getPlanTitle())
+                .startDate(requestDto.getStartDate())
+                .endDate(requestDto.getEndDate())
                 .build();
 
-        return responseService.getSingleResult(planService.update(id, planUpdateRequestDto));
+        return responseService.getSingleResult(planService.update(requestDto.getPlanId(), planDto));
     }
 
     /**
