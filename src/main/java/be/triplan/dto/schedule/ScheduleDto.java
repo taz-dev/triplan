@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ScheduleDto {
-    private Long id;
+    private Long scheduleId;
     private String scheduleTitle;
     private int price;
     private LocalDateTime startDateTime;
@@ -23,7 +23,7 @@ public class ScheduleDto {
     private Map map;
 
     public ScheduleDto(Schedule schedule) {
-        this.id = schedule.getId();
+        this.scheduleId = schedule.getId();
         this.scheduleTitle = schedule.getScheduleTitle();
         this.price = schedule.getPrice();
         this.startDateTime = schedule.getStartDateTime();

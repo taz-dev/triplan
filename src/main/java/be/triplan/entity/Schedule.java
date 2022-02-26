@@ -62,17 +62,10 @@ public class Schedule extends BaseTimeEntity {
     }
 
     //생성 메서드
-    public static Schedule createSchedule(Plan plan, Map map, ScheduleDto scheduleDto) {
+    public static Schedule createSchedule(Plan plan, ScheduleDto scheduleDto) {
         Schedule schedule = new Schedule();
-
         schedule.addPlan(plan);
-        schedule.addMap(map);
-
-        schedule.addSchedule(scheduleDto.getScheduleTitle(),
-                schedule.getPrice(),
-                schedule.getStartDateTime(),
-                schedule.getEndDateTime(),
-                schedule.getMemo());
+        schedule.addSchedule(scheduleDto.getScheduleTitle(), scheduleDto.getPrice(), scheduleDto.getStartDateTime(), scheduleDto.getEndDateTime(), scheduleDto.getMemo());
 
         return schedule;
     }

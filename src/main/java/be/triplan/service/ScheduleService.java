@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,33 +27,20 @@ public class ScheduleService {
 
     //일정 저장
     @Transactional
-    public Long save(Long plan_id, Long map_id, ScheduleDto scheduleDto) {
+    public Long save(Long plan_id, ScheduleDto scheduleDto) {
         Plan plan = planRepository.findById(plan_id).orElseThrow();
-        Map map = mapRepository.findById(map_id).orElseThrow();
-        Schedule schedule = Schedule.createSchedule(plan, map, scheduleDto);
+        Schedule schedule = Schedule.createSchedule(plan, scheduleDto);
         scheduleRepository.save(schedule);
         return schedule.getId();
     }
 
-/*    public Long save(ScheduleInsertRequestDto requestDto) {
-        Schedule schedule = scheduleRepository.save(requestDto.toEntity());
-        return schedule.getId();
-    }*/
-
-    //일정 전체 조회(오름차순)
-    public List<ScheduleDto> findAllSchedules() {
-        return scheduleRepository.findAllSchedules()
+    //계획 별로 일정 전체목록 조회
+    public List<ScheduleDto> findAllSchedules(Long planId) {
+        return scheduleRepository.findAllSchedules(planId)
                 .stream()
                 .map(ScheduleDto::new)
                 .collect(Collectors.toList());
     }
-
-/*    public List<ScheduleDto> findAllSchedules() {
-        return scheduleRepository.findAll()
-                .stream()
-                .map(ScheduleDto::new)
-                .collect(Collectors.toList());
-    }*/
 
     //일정 단건 조회
     public ScheduleDto findOne(Long id) {
@@ -60,6 +49,11 @@ public class ScheduleService {
     }
 
     //일정 수정
+    public Long update(Long id, ScheduleDto scheduleDto) {
+
+
+        return id;
+    }
 
     //일정 삭제
     @Transactional

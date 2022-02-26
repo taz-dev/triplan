@@ -12,7 +12,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Map {
+public class Map extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "map_id")
@@ -31,6 +31,9 @@ public class Map {
 
     @Column(name = "map_image")
     private String mapImage;
+
+    @Enumerated(EnumType.STRING)
+    private MapStatus mapStatus;
 
     @OneToOne(mappedBy = "map", fetch = LAZY)
     private Schedule schedule;

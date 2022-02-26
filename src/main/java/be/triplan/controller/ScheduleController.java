@@ -5,6 +5,10 @@ import be.triplan.dto.common.ListResult;
 import be.triplan.dto.common.SingleResult;
 import be.triplan.dto.schedule.ScheduleDto;
 import be.triplan.dto.schedule.ScheduleInsertRequestDto;
+import be.triplan.dto.schedule.ScheduleUpdateRequestDto;
+import be.triplan.entity.Map;
+import be.triplan.entity.MapStatus;
+import be.triplan.repository.MapRepository;
 import be.triplan.service.ScheduleService;
 import be.triplan.service.common.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +20,7 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
     private final ResponseService responseService;
+    private final MapRepository mapRepository;
 
     /**
      * 일정 저장
@@ -23,10 +28,7 @@ public class ScheduleController {
     @PostMapping("/schedules")
     public SingleResult<Long> saveSchedules(@RequestBody ScheduleInsertRequestDto requestDto) {
 
-        Long plan_id = requestDto.getPlanId();
-        Long map_id = requestDto.getMapId();
-
-        ScheduleDto responseDto = ScheduleDto.builder()
+        ScheduleDto scheduleDto = ScheduleDto.builder()
                 .scheduleTitle(requestDto.getScheduleTitle())
                 .price(requestDto.getPrice())
                 .startDateTime(requestDto.getStartDateTime())
@@ -34,33 +36,56 @@ public class ScheduleController {
                 .memo(requestDto.getMemo())
                 .build();
 
-        return responseService.getSingleResult(scheduleService.save(plan_id, map_id, responseDto));
+        return responseService.getSingleResult(scheduleService.save(requestDto.getPlanId(), scheduleDto));
     }
     
     /**
-     * 일정 전체목록 조회(오름차순)
+     * 계획 별로 일정 전체목록 조회
+     * 1. 시작 시간이 빠른 순서대로 오름차순 정렬
      */
-    @GetMapping("/schedules")
-    public ListResult<ScheduleDto> findAllSchedules() {
-        return responseService.getListResult(scheduleService.findAllSchedules());
+    @GetMapping("/schedules/{planId}")
+    public ListResult<ScheduleDto> findAllSchedules(@PathVariable Long planId) {
+        return responseService.getListResult(scheduleService.findAllSchedules(planId));
     }
 
     /**
-     * 일정 단건 조회
+     * 일정 단건 조회 -> 필요 없을 듯
      */
-    @GetMapping("/schedules/{id}")
+/*    @GetMapping("/schedules/{id}")
     public SingleResult<ScheduleDto> findScheduleById(@PathVariable Long id) {
         return responseService.getSingleResult(scheduleService.findOne(id));
-    }
+    }*/
 
     /**
      * 일정 수정
+     * 1. MAP 테이블에 일정위치 저장(MapStatus.SCHEDULE)
+     * 2. 일정 수정할 때 일정위치 값 같이 UPDATE
      */
-/*    @PutMapping("/schedules")
+    @PutMapping("/schedules")
     public SingleResult<Long> updateSchedule(@RequestBody ScheduleUpdateRequestDto requestDto) {
 
-        return responseService.getSingleResult();
-    }*/
+        Map map = Map.builder()
+                .mapImage(requestDto.getMap().get(0).getPlanImage())
+                .locationX(requestDto.getMap().get(0).getLocationX())
+                .locationY(requestDto.getMap().get(0).getLocationY())
+                .address(requestDto.getMap().get(0).getAddress())
+                .addressDetail(requestDto.getMap().get(0).getAddressDetail())
+                .mapStatus(MapStatus.SCHEDULE)
+                .build();
+
+        mapRepository.save(map);
+
+        ScheduleDto scheduleDto = ScheduleDto.builder()
+                .scheduleTitle(requestDto.getScheduleTitle())
+                .price(requestDto.getPrice())
+                .startDateTime(requestDto.getStartDateTime())
+                .endDateTime(requestDto.getEndDateTime())
+                .memo(requestDto.getMemo())
+                .map(map)
+                .build();
+
+        return responseService.getSingleResult(scheduleService.update(requestDto.getScheduleId(), scheduleDto));
+    }
 
     /**
      * 일정 삭제
