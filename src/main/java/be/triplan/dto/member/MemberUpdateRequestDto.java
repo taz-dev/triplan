@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberUpdateRequestDto {
-    private String accessToken;
-    private Long memberId;
     private String nickname;
     private String aboutMe;
     private String memberImage;

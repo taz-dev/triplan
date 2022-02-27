@@ -6,14 +6,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -34,8 +32,6 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(name = "name_tag")
     private String nameTag;
 
-    private String password; //UserDetails 나중에 Principal로 분리
-
     @Column(name = "about_me")
     private String aboutMe;
 
@@ -47,9 +43,9 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(name = "member_image")
     private String memberImage;
 
-    @OneToOne(fetch = LAZY, cascade = ALL)
+/*    @OneToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "member_img_id")
-    private MemberImg memberImg;
+    private MemberImg memberImg;*/
 
     @OneToMany(mappedBy = "member", cascade = ALL)
     private List<PlanJoin> planJoins = new ArrayList<>();
@@ -74,12 +70,6 @@ public class Member extends BaseTimeEntity implements UserDetails {
         this.memberImage = memberImage;
     }
 
-    //연관관계 메서드
-    public void changeMemberImg(MemberImg memberImg) {
-        this.memberImg = memberImg;
-        memberImg.setMember(this);
-    }
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
@@ -92,29 +82,30 @@ public class Member extends BaseTimeEntity implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
-        return String.valueOf(this.id);
+    public String getPassword() {
+        return null;
     }
 
-    //계정이 만료되었는지 여부
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    //계정이 잠겼는지 여부
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    //계졍 패스워드가 만료되었는지 여부
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    //계정이 사용가능한지 여부
     @Override
     public boolean isEnabled() {
         return true;

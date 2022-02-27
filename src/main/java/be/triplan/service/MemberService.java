@@ -1,6 +1,6 @@
 package be.triplan.service;
 
-import be.triplan.dto.member.MemberResponseDto;
+import be.triplan.dto.member.MemberDto;
 import be.triplan.entity.Member;
 import be.triplan.exception.UserNotFoundException;
 import be.triplan.repository.MemberRepository;
@@ -18,28 +18,28 @@ import java.util.stream.Collectors;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    
+
     //회원 전체 조회
-    public List<MemberResponseDto> findAllMembers() {
+    public List<MemberDto> findAllMembers() {
         return memberRepository.findAll()
                 .stream()
-                .map(MemberResponseDto::new)
+                .map(MemberDto::new)
                 .collect(Collectors.toList());
     }
 
     //회원 한명 조회
-    public MemberResponseDto findOne(Long id) {
+    public MemberDto findOne(Long id) {
         Member member = memberRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        return new MemberResponseDto(member);
+        return new MemberDto(member);
     }
 
     //회원 수정
     @Transactional
-    public Long update(Long id, MemberResponseDto responseDto) {
+    public Long update(Long id, MemberDto memberDto) {
         Member member = memberRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        member.updateNickname(responseDto.getNickname());
-        member.updateAboutMe(responseDto.getAboutMe());
-        member.updateImage(responseDto.getMemberImage());
+        member.updateNickname(memberDto.getNickname());
+        member.updateAboutMe(memberDto.getAboutMe());
+        member.updateImage(memberDto.getMemberImage());
         return id;
     }
 
@@ -63,7 +63,7 @@ public class MemberService {
             
             //이미 사용중인 nameTag 는 memberRepository 에서 찾아 중복제거해주는 로직 짜기
         }
-        
+
         return tag.toString();
     }
 }

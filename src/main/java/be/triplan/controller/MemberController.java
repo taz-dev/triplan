@@ -3,11 +3,13 @@ package be.triplan.controller;
 import be.triplan.dto.common.CommonResult;
 import be.triplan.dto.common.ListResult;
 import be.triplan.dto.common.SingleResult;
-import be.triplan.dto.member.MemberResponseDto;
+import be.triplan.dto.member.MemberDto;
 import be.triplan.dto.member.MemberUpdateRequestDto;
+import be.triplan.entity.Member;
 import be.triplan.service.MemberService;
 import be.triplan.service.common.ResponseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,9 +21,10 @@ public class MemberController {
 
     /**
      * 회원 목록 조회
+     * 1. 친구 초대를 위해 회원 전체 목록 조회하기
      */
     @GetMapping("/members")
-    public ListResult<MemberResponseDto> findAllMembers() {
+    public ListResult<MemberDto> findAllMembers() {
         return responseService.getListResult(memberService.findAllMembers());
     }
 
@@ -29,27 +32,25 @@ public class MemberController {
      * 회원 단건 조회
      */
     @GetMapping("/members/{id}")
-    public SingleResult<MemberResponseDto> findMemberById(@PathVariable Long id) {
+    public SingleResult<MemberDto> findMemberById(@PathVariable Long id) {
         return responseService.getSingleResult(memberService.findOne(id));
     }
 
     /**
      * 회원 수정
-     * 1. 간단설정 할 때 "닉네임, 자기소개" 업데이트
-     * 2. 로그인 후 마이페이지에서 프로필 수정할 때 "닉네임, 자기소개, 이미지" 업데이트
+     * 1. 간단설정 할 때 "닉네임, 자기소개" UPDATE
+     * 2. 로그인 후 마이페이지에서 프로필 수정할 때 "닉네임, 자기소개, 이미지" UPDATE
      */
     @PutMapping("/members")
-    public SingleResult<Long> updateMember(@RequestBody MemberUpdateRequestDto requestDto) {
+    public SingleResult<Long> updateMember(@AuthenticationPrincipal Member member, @RequestBody MemberUpdateRequestDto requestDto) {
 
-        Long member_id = requestDto.getMemberId();
-
-        MemberResponseDto responseDto = MemberResponseDto.builder()
+        MemberDto memberDto = MemberDto.builder()
                 .nickname(requestDto.getNickname())
                 .aboutMe(requestDto.getAboutMe())
                 .memberImage(requestDto.getMemberImage())
                 .build();
 
-        return responseService.getSingleResult(memberService.update(member_id, responseDto));
+        return responseService.getSingleResult(memberService.update(member.getId(), memberDto));
     }
 
     /**
