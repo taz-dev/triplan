@@ -1,7 +1,6 @@
 package be.triplan.service;
 
 import be.triplan.dto.plan.PlanDto;
-import be.triplan.dto.plan.PlanUpdateRequestDto;
 import be.triplan.entity.Member;
 import be.triplan.entity.Plan;
 import be.triplan.entity.PlanJoin;
@@ -66,7 +65,13 @@ public class PlanService {
 
     //계획 삭제
     @Transactional
-    public void delete(Long id) {
-        planRepository.deleteById(id);
+    public void delete(Member member, Long id) {
+        List<PlanJoin> planJoins = planJoinRepository.findByMember_Id(member.getId());
+        PlanJoin planJoin = planJoins.get(0);
+
+        Long planJoinPlanId = planJoin.getPlan().getId();
+        if (planJoinPlanId == id) {
+            planRepository.deleteById(id);
+        }
     }
 }
