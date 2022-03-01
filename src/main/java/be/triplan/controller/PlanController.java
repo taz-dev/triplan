@@ -6,10 +6,8 @@ import be.triplan.dto.common.SingleResult;
 import be.triplan.dto.plan.PlanDto;
 import be.triplan.dto.plan.PlanInsertRequestDto;
 import be.triplan.dto.plan.PlanUpdateRequestDto;
-import be.triplan.entity.Map;
-import be.triplan.entity.MapStatus;
 import be.triplan.entity.Member;
-import be.triplan.repository.MapRepository;
+import be.triplan.service.MapService;
 import be.triplan.service.PlanJoinService;
 import be.triplan.service.PlanService;
 import be.triplan.service.common.ResponseService;
@@ -26,7 +24,7 @@ public class PlanController {
     private final PlanService planService;
     private final PlanJoinService planJoinService;
     private final ResponseService responseService;
-    private final MapRepository mapRepository;
+    private final MapService mapService;
 
     /**
      * 계획 저장
@@ -45,33 +43,8 @@ public class PlanController {
                 .planImage(requestDto.getMap().get(1).getPlanImage()) //3
                 .build();
         //2
-        for (int i = 0; i < requestDto.getMap().size(); i++) {
+        mapService.saveMapStatus(requestDto);
 
-            if (i == 0) {
-                Map map = Map.builder()
-                        .mapImage(requestDto.getMap().get(i).getPlanImage())
-                        .locationX(requestDto.getMap().get(i).getLocationX())
-                        .locationY(requestDto.getMap().get(i).getLocationY())
-                        .address(requestDto.getMap().get(i).getAddress())
-                        .addressDetail(requestDto.getMap().get(i).getAddressDetail())
-                        .mapStatus(MapStatus.START)
-                        .build();
-
-                mapRepository.save(map);
-
-            } else {
-                Map map = Map.builder()
-                        .mapImage(requestDto.getMap().get(i).getPlanImage())
-                        .locationX(requestDto.getMap().get(i).getLocationX())
-                        .locationY(requestDto.getMap().get(i).getLocationY())
-                        .address(requestDto.getMap().get(i).getAddress())
-                        .addressDetail(requestDto.getMap().get(i).getAddressDetail())
-                        .mapStatus(MapStatus.END)
-                        .build();
-
-                mapRepository.save(map);
-            }
-        }
         return responseService.getSingleResult(planService.save(member.getId(), planDto));
     }
 

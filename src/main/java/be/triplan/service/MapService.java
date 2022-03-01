@@ -2,7 +2,9 @@ package be.triplan.service;
 
 import be.triplan.dto.map.MapDto;
 import be.triplan.dto.map.MapInsertRequestDto;
+import be.triplan.dto.plan.PlanInsertRequestDto;
 import be.triplan.entity.Map;
+import be.triplan.entity.MapStatus;
 import be.triplan.repository.MapRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,39 @@ import java.util.stream.Collectors;
 public class MapService {
 
     private final MapRepository mapRepository;
+
+    //계획 저장할 때 출발위치 도착위치 저장
+    @Transactional
+    public void saveMapStatus(PlanInsertRequestDto requestDto) {
+
+        for (int i = 0; i < requestDto.getMap().size(); i++) {
+
+            if (i == 0) {
+                Map map = Map.builder()
+                        .mapImage(requestDto.getMap().get(i).getPlanImage())
+                        .locationX(requestDto.getMap().get(i).getLocationX())
+                        .locationY(requestDto.getMap().get(i).getLocationY())
+                        .address(requestDto.getMap().get(i).getAddress())
+                        .addressDetail(requestDto.getMap().get(i).getAddressDetail())
+                        .mapStatus(MapStatus.START)
+                        .build();
+
+                mapRepository.save(map);
+
+            } else {
+                Map map = Map.builder()
+                        .mapImage(requestDto.getMap().get(i).getPlanImage())
+                        .locationX(requestDto.getMap().get(i).getLocationX())
+                        .locationY(requestDto.getMap().get(i).getLocationY())
+                        .address(requestDto.getMap().get(i).getAddress())
+                        .addressDetail(requestDto.getMap().get(i).getAddressDetail())
+                        .mapStatus(MapStatus.END)
+                        .build();
+
+                mapRepository.save(map);
+            }
+        }
+    }
 
     //지도에 핀(위치) 저장
     @Transactional
