@@ -1,5 +1,6 @@
 package be.triplan.controller;
 
+import be.triplan.dto.common.CommonResult;
 import be.triplan.dto.common.SingleResult;
 import be.triplan.dto.jwt.RefreshTokenDto;
 import be.triplan.dto.jwt.TokenDto;
@@ -22,9 +23,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class SignController {
 
+    private final SignService signService;
     private final KakaoService kakaoService;
     private final MemberService memberService;
-    private final SignService signService;
     private final ResponseService responseService;
 
     /**
@@ -56,7 +57,7 @@ public class SignController {
     }
 
     /**
-     * KAKAO 자동 로그인 ---> 구글, 네이버는 일단 나중에 생각
+     * KAKAO 자동 로그인
      * 1. DB에 refresh token 이 있을 경우 자동으로 로그인
      * 2. 다시 jwt 생성해서 DB에 refresh token UPDATE
      */
@@ -66,10 +67,13 @@ public class SignController {
         return responseService.getSingleResult(tokenDto);
     }
 
+    /**
+     * KAKAO 유저와 연결 끊기
+     */
     @GetMapping("/social/logout/kakao")
-    public void logout(@PathVariable String accessToken){
-        kakaoService.kakaoUnlink("EEBvmaF1Oyait-UHUTDasIQDnqiUQoErmfULoAo9c00AAAF-CwdHSA");
-        log.info("로그아웃성공");
+    public CommonResult logout(@RequestBody KakaoAccessTokenDto accessTokenDto){
+        kakaoService.kakaoUnlink(accessTokenDto.getAccessToken());
+        return responseService.getSuccessResult();
     }
 
     /**
