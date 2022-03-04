@@ -67,11 +67,14 @@ public class PlanService {
     @Transactional
     public void delete(Member member, Long id) {
         List<PlanJoin> planJoins = planJoinRepository.findByMember_Id(member.getId());
-        PlanJoin planJoin = planJoins.get(0);
 
-        Long planJoinPlanId = planJoin.getPlan().getId();
-        if (planJoinPlanId == id) {
-            planRepository.deleteById(id);
+        for (int i = 0; i < planJoins.size(); i++) {
+            PlanJoin planJoin = planJoins.get(i);
+            Long planJoinPlanId = planJoin.getPlan().getId();
+
+            if (planJoinPlanId == id) {
+                planRepository.deleteById(id);
+            }
         }
     }
 }
