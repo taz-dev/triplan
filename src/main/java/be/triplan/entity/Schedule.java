@@ -50,7 +50,7 @@ public class Schedule extends BaseTimeEntity {
 
     public void addMap(Map map) {
         this.map = map;
-        map.setSchedule(this);
+        map.addSchedule(this);
     }
 
     public void addSchedule(String scheduleTitle, int price, LocalDateTime startDateTime, LocalDateTime endDateTime, String memo) {
@@ -62,9 +62,10 @@ public class Schedule extends BaseTimeEntity {
     }
 
     //생성 메서드
-    public static Schedule createSchedule(Plan plan, ScheduleDto scheduleDto) {
+    public static Schedule createSchedule(Plan plan, Map map, ScheduleDto scheduleDto) {
         Schedule schedule = new Schedule();
         schedule.addPlan(plan);
+        schedule.addMap(map);
         schedule.addSchedule(scheduleDto.getScheduleTitle(), scheduleDto.getPrice(), scheduleDto.getStartDateTime(), scheduleDto.getEndDateTime(), scheduleDto.getMemo());
 
         return schedule;

@@ -49,14 +49,6 @@ public class ScheduleController {
     }
 
     /**
-     * 일정 단건 조회 -> 필요 없을 듯
-     */
-/*    @GetMapping("/schedules/{id}")
-    public SingleResult<ScheduleDto> findScheduleById(@PathVariable Long id) {
-        return responseService.getSingleResult(scheduleService.findOne(id));
-    }*/
-
-    /**
      * 일정 수정
      * 1. MAP 테이블에 일정위치 저장(MapStatus.SCHEDULE)
      * 2. 일정 수정할 때 일정위치 값 같이 UPDATE
@@ -81,7 +73,7 @@ public class ScheduleController {
                 .startDateTime(requestDto.getStartDateTime())
                 .endDateTime(requestDto.getEndDateTime())
                 .memo(requestDto.getMemo())
-                .map(map)
+                //.map(map)
                 .build();
 
         return responseService.getSingleResult(scheduleService.update(requestDto.getScheduleId(), scheduleDto));

@@ -2,6 +2,7 @@ package be.triplan.service;
 
 import be.triplan.dto.schedule.ScheduleDto;
 import be.triplan.entity.Map;
+import be.triplan.entity.MapStatus;
 import be.triplan.entity.Plan;
 import be.triplan.entity.Schedule;
 import be.triplan.repository.MapRepository;
@@ -29,7 +30,12 @@ public class ScheduleService {
     @Transactional
     public Long save(Long plan_id, ScheduleDto scheduleDto) {
         Plan plan = planRepository.findById(plan_id).orElseThrow();
-        Schedule schedule = Schedule.createSchedule(plan, scheduleDto);
+
+        Map map = Map.builder()
+                .mapStatus(MapStatus.SCHEDULE)
+                .build();
+
+        Schedule schedule = Schedule.createSchedule(plan, map, scheduleDto);
         scheduleRepository.save(schedule);
         return schedule.getId();
     }

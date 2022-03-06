@@ -1,6 +1,6 @@
 package be.triplan.dto.schedule;
 
-import be.triplan.entity.Map;
+import be.triplan.entity.MapStatus;
 import be.triplan.entity.Schedule;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +20,13 @@ public class ScheduleDto {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String memo;
-    private Map map;
+    private Long mapId;
+    private String address;
+    private String addressDetail;
+    private String locationX;
+    private String locationY;
+    private String mapImage;
+    private MapStatus mapStatus;
 
     public ScheduleDto(Schedule schedule) {
         this.scheduleId = schedule.getId();
@@ -29,6 +35,12 @@ public class ScheduleDto {
         this.startDateTime = schedule.getStartDateTime();
         this.endDateTime = schedule.getEndDateTime();
         this.memo = schedule.getMemo();
-        this.map = schedule.getMap();
+        this.mapId = schedule.getMap().getId();
+        this.address = schedule.getMap().getAddress();
+        this.addressDetail = schedule.getMap().getAddressDetail();
+        this.locationX = schedule.getMap().getLocationX();
+        this.locationY = schedule.getMap().getLocationY();
+        this.mapImage = schedule.getMap().getMapImage();
+        this.mapStatus = schedule.getMap().getMapStatus();
     }
 }

@@ -38,7 +38,7 @@ public class Map extends BaseTimeEntity {
     @OneToOne(mappedBy = "map", fetch = LAZY)
     private Schedule schedule;
 
-    public void setSchedule(Schedule schedule) {
+    public void addSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
 
