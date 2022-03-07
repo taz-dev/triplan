@@ -26,12 +26,12 @@ public class ChecklistController {
 
         Long plan_id = requestDto.getPlanId();
 
-        ChecklistDto responseDto = ChecklistDto.builder()
+        ChecklistDto checklistDto = ChecklistDto.builder()
                 .checkItem(requestDto.getCheckItem())
                 .isSelected(requestDto.getIsSelected())
                 .build();
 
-        return responseService.getSingleResult(checklistService.save(plan_id, responseDto));
+        return responseService.getSingleResult(checklistService.save(plan_id, checklistDto));
     }
 
     /**
@@ -50,12 +50,12 @@ public class ChecklistController {
 
         Long checklist_id = requestDto.getChecklistId();
 
-        ChecklistDto responseDto = ChecklistDto.builder()
+        ChecklistDto checklistDto = ChecklistDto.builder()
                 .checkItem(requestDto.getCheckItem())
                 .isSelected(requestDto.getIsSelected())
                 .build();
 
-        return responseService.getSingleResult(checklistService.update(checklist_id, responseDto));
+        return responseService.getSingleResult(checklistService.update(checklist_id, checklistDto));
     }
 
     /**
