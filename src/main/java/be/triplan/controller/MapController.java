@@ -19,7 +19,7 @@ public class MapController {
     private final ResponseService responseService;
 
     /**
-     * 지도에 핀(위치) 저장
+     * 지도에 위치 저장
      */
     @PostMapping("/maps")
     public SingleResult<Long> saveMap(@RequestBody MapInsertRequestDto requestDto) {
@@ -28,7 +28,7 @@ public class MapController {
     }
 
     /**
-     * 핀 전체 조회
+     * 지도 전체 조회
      */
     @GetMapping("/maps")
     public ListResult<MapDto> findAllMaps() {
@@ -36,7 +36,7 @@ public class MapController {
     }
     
     /**
-     * 핀 한개 조회
+     * 위치 한개 조회
      */
     @GetMapping("/maps/{id}")
     public SingleResult<MapDto> findMapById(@PathVariable Long id) {
@@ -44,25 +44,25 @@ public class MapController {
     }
 
     /**
-     * 핀 수정
+     * 위치 수정
      */
     @PutMapping("/maps")
     public SingleResult<Long> updateMap(@RequestBody MapUpdateRequestDto requestDto) {
 
         Long map_id = requestDto.getMapId();
 
-        MapDto responseDto = MapDto.builder()
+        MapDto mapDto = MapDto.builder()
                 .locationX(requestDto.getLocationX())
                 .locationY(requestDto.getLocationY())
                 .address(requestDto.getAddress())
                 .addressDetail(requestDto.getAddressDetail())
                 .build();
 
-        return responseService.getSingleResult(mapService.update(map_id, responseDto));
+        return responseService.getSingleResult(mapService.update(map_id, mapDto));
     }
 
     /**
-     * 핀 삭제
+     * 위치 삭제
      */
     @DeleteMapping("/maps/{id}")
     public CommonResult deleteMap(@PathVariable Long id) {
