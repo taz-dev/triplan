@@ -16,15 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class QuestionController {
 
-    private final ResponseService responseService;
     private final QuestionService questionService;
+    private final ResponseService responseService;
 
     /**
      * 문의 저장(일단 DB에 저장 -> 나중에 관리자 이메일로)
      */
     @PostMapping("/questions")
-    public SingleResult<Long> saveQuestion(@AuthenticationPrincipal Member member,
-                                           @RequestBody QuestionInsertRequestDto requestDto) {
+    public SingleResult<Long> saveQuestion(@AuthenticationPrincipal Member member, @RequestBody QuestionInsertRequestDto requestDto) {
 
         QuestionDto questionDto = QuestionDto.builder()
                 .questionTitle(requestDto.getComplainName())
