@@ -1,7 +1,12 @@
 # 🛫 우리들의 여행계획을 책임지는 Triplan
 
 ### 🔎 프로젝트 소개
-* 여행 계획을 세우는데 어려움을 겪는 사람들을 위해 쉽고 빠르게 여행 계획을 세울 수 있도록 도와주는 앱
+* 여행 계획을 세우는데 어려움을 겪는 사람들을 위해 쉽고 빠르게 여행 계획을 세울 수 있도록 도와주는 앱<br>
+  ✔ 지도에서 위치등록을 통해 **한눈에 동선을 파악**할 수 있어요!<br>
+  ✔ **체크리스트**를 통해 여행에 필요한 물품들을 꼼꼼하게 확인할 수 있어요!<br>
+  ✔ 여행에 소비한 경비와 간단한 메모작성을 통해 **여행 경비 정산**을 쉽게 할 수 있어요!<br>
+  ✔ 친구와 함께 **여행일정 공유**를 할 수 있어요!<br>
+  
 * **[TriplanFigma](https://www.figma.com/file/PrBkB1681e36HTfxL7NacJ/Trip-Planner?node-id=0%3A1)** 👈 눌러보시면 프로젝트의 전체적인 디자인을 볼 수 있어요!
 <br>
 
@@ -23,6 +28,16 @@
 ![triplanDB](https://user-images.githubusercontent.com/88026773/154690467-be5a4780-09ec-4007-9419-04a124951226.PNG)
 <br>
 <br>
+### 👩‍🔧 주요업무 및 상세 역할
+![카카오 서버](https://user-images.githubusercontent.com/88026773/148561323-ce041d13-61ca-4830-8cc5-b6431eafe1a0.PNG)
+* OAuth2.0을 이용한 Kakao 회원가입 및 로그인 (Google, Naver 추후 구현 예정)
+* JWT(Access Token, Refresh Token)로 보안성 강화 및 사용자 편의성 고도화
+* RestAPI에 대한 이해를 바탕으로 API 설계(명사를 통한 리소스 식별, 헤더에 데이터 포맷 포함)
+* 간단 설정 기능, 프로필 수정 기능, 문의하기 기능
+* 여행, 일정, 체크리스트 CRUD 기능 (+ 친구와 여행계획 공유할 수 있는 기능 추가)
+* PaaS 기반 클라우드 플랫폼인 Heroku를 활용하여 서버 배포 진행중
+<br>
+
 ### 🗂 프로젝트 구조
 ```j
 +---main
@@ -142,16 +157,6 @@
 |   |               \---oauth
 |   |                       KakaoService.java 
 ```
-<br>
-
-### 👩‍🔧 주요업무 및 상세 역할
-![카카오 서버](https://user-images.githubusercontent.com/88026773/148561323-ce041d13-61ca-4830-8cc5-b6431eafe1a0.PNG)
-* OAuth2.0을 이용한 Kakao 회원가입 및 로그인 (Google, Naver 추후 구현 예정)
-* JWT(Access Token, Refresh Token)로 보안성 강화 및 사용자 편의성 고도화
-* RestAPI에 대한 이해를 바탕으로 API 설계(명사를 통한 리소스 식별, 헤더에 데이터 포맷 포함)
-* 로그인 후 간단 설정 기능, 프로필 수정 기능, 문의 기능
-* 여행, 일정, 체크리스트 CRUD 기능 (+ 친구와 여행계획 공유할 수 있는 기능 추가)
-* PaaS 기반 클라우드 플랫폼인 Heroku를 활용하여 서버 배포
 <br>
 
 <!--
