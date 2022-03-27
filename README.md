@@ -1,13 +1,12 @@
 # 🛫 우리들의 여행계획을 책임지는 Triplan
+<img src="https://user-images.githubusercontent.com/88026773/160267764-6ce97d7d-bbc3-4f6f-a4ca-f964dc77e914.jpg" height="500" width="650">
 
 ### 🔎 프로젝트 소개
-* 여행 계획을 세우는데 어려움을 겪는 사람들을 위해 쉽고 빠르게 여행 계획을 세울 수 있도록 도와주는 앱<br>
+#### "여행 계획을 세우는데 어려움을 겪는 사람들을 위해 쉽고 빠르게 여행 계획을 세울 수 있도록 도와주는 앱"<br>
   ✔ 지도에서 위치등록을 통해 **한눈에 동선을 파악**할 수 있어요!<br>
   ✔ **체크리스트**를 통해 여행에 필요한 물품들을 꼼꼼하게 확인할 수 있어요!<br>
   ✔ 여행에 소비한 경비와 간단한 메모작성을 통해 **여행 경비 정산**을 쉽게 할 수 있어요!<br>
   ✔ 친구와 함께 **여행일정 공유**를 할 수 있어요!<br>
-  
-* **[TriplanFigma](https://www.figma.com/file/PrBkB1681e36HTfxL7NacJ/Trip-Planner?node-id=0%3A1)** 👈 눌러보시면 프로젝트의 전체적인 디자인을 볼 수 있어요!
 <br>
 
 ### 👨‍👨‍👦‍👦 작업 기간 & 팀원 구성
@@ -160,6 +159,8 @@
 <br>
 
 <!--
+* **[TriplanFigma](https://www.figma.com/file/PrBkB1681e36HTfxL7NacJ/Trip-Planner?node-id=0%3A1)** 👈 눌러보시면 프로젝트의 전체적인 디자인을 볼 수 있어요!
+
 ![흐름_1119](https://user-images.githubusercontent.com/88026773/144074483-6344ffc6-d26b-4465-8b20-d6f3baebf541.PNG)
 ### 🎮 Triplan 주요 기능
 #### 1. 카카오 회원가입 및 로그인
